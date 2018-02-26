@@ -22,9 +22,14 @@ class Meal{
     init?(name: String, photo: UIImage?, rating: Int){ // Because of ? it is a failable initializer
         // Initialization should fail if there's no name or rating is negative
         
-        if name.isEmpty || rating < 0 {
+        if name.isEmpty {
             return nil
         }
+        
+        guard (rating >= 0) && (rating <= 5) else {
+            return nil
+        }
+        
         // Initialize poroperties
         self.name = name
         self.photo = photo
