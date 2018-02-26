@@ -14,6 +14,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var mealNameLabel: UILabel!
     @IBOutlet weak var photoImageView: UIImageView!
+    @IBOutlet weak var RatingControl: RatingControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,11 +75,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         imagePickerController.delegate = self
         print("picked")
         present(imagePickerController, animated: true, completion: nil)
-        print("should open damn window")
-    }
-    
-    @IBAction func setDefaultLabelText(_ sender: UIButton) {
-        mealNameLabel.text = "Default Text"
+        print("should open window")
     }
     
 }
