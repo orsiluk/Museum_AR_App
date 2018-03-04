@@ -2,9 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/lukacs_orsi/Desktop/Year_4/Thesis/demos/foodtracker copy/MuseumApp/MuseumApp/Assets.xcassets">
-   </FileRef>
-   <FileRef
       location = "self:">
    </FileRef>
 </Workspace>

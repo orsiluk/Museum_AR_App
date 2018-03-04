@@ -17,9 +17,9 @@ class StaffTableViewController: UITableViewController {
     //MARK: Private Methods
     
     private func loadSampleMeals() {
-        let photo1 = UIImage(named: "impression")
-        let photo2 = UIImage(named: "park")
-        let photo3 = UIImage(named: "poppies")
+        let photo1 = UIImage(named: "Painting_impression")
+        let photo2 = UIImage(named: "Painting_park")
+        let photo3 = UIImage(named: "Painting_poppies")
         
         guard let meal1 = Painting(name: "Impression", photo: photo1, rating: 4) else {
             fatalError("Unable to instantiate impression")

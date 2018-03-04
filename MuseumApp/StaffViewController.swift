@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  AdventureViewController.swift
 //  MuseumApp
 //
 //  Created by Orsolya Lukacs-Kisbandi on 16/02/2018.
@@ -28,10 +28,10 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // To set the ViewController object as the delegate of its nameTextField property
+        // To set the AdventureViewController object as the delegate of its nameTextField property
         // Handle the text field’s user input through delegate callbacks.
         nameTextField.delegate = self
-        // Make sure ViewController is notified when the user picks an image.
+        // Make sure AdventureViewController is notified when the user picks an image.
         
         // Set up views if editing an existing Painting.
         if let painting = painting {

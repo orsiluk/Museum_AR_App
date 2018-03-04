@@ -10,7 +10,7 @@ import SceneKit
 import UIKit
 //import StatusViewControler
 
-class ViewController: UIViewController, ARSCNViewDelegate {
+class AdventureViewController: UIViewController, ARSCNViewDelegate {
     
     @IBOutlet var sceneView: ARSCNView!
     

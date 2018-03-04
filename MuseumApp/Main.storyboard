@@ -40,7 +40,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="rDH-5Q-9sm" customClass="RatingControl" customModule="MuseumApp" customModuleProvider="target">
-                                            <rect key="frame" x="188" y="58" width="248" height="10"/>
+                                            <rect key="frame" x="188" y="58" width="248" height="50"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </stackView>
                                     </subviews>
@@ -264,7 +264,7 @@
         <!--Status View Controller-->
         <scene sceneID="GZR-EO-7Wj">
             <objects>
-                <viewController id="5S1-oz-pDd" customClass="StatusViewController" customModule="ARKitImageRecognition" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="5S1-oz-pDd" customClass="StatusViewController" customModule="MuseumApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="SBC-ZU-odK">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="85"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -353,10 +353,10 @@
             </objects>
             <point key="canvasLocation" x="-681" y="745"/>
         </scene>
-        <!--View Controller-->
+        <!--Adventure View Controller-->
         <scene sceneID="Mrf-nY-QYH">
             <objects>
-                <viewController id="3dN-Jx-bng" customClass="ViewController" customModule="ARKitImageRecognition" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="3dN-Jx-bng" customClass="AdventureViewController" customModule="MuseumApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7e1-Uv-Zsj">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -411,8 +411,8 @@
     <resources>
         <image name="adventure" width="249" height="235"/>
         <image name="defaultPhoto" width="1080" height="1080"/>
-        <image name="restart" width="16" height="16"/>
-        <image name="restartPressed" width="16" height="16"/>
+        <image name="restart" width="20" height="23"/>
+        <image name="restartPressed" width="20" height="23"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="9lg-oW-Hgr"/>
