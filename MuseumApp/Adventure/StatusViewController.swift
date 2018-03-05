@@ -1,9 +1,10 @@
-/*
-See LICENSE folder for this sample’s licensing information.
+//  MuseumApp
+//
+//  Created by Orsolya Lukacs-Kisbandi on 16/02/2018.
+//  Copyright © 2018 Orsolya Lukacs-Kisbandi. All rights reserved.
+//  Abstract:
+//  Utility class for showing messages above the AR view.
 
-Abstract:
-Utility class for showing messages above the AR view.
-*/
 
 import Foundation
 import ARKit

@@ -98,15 +98,9 @@
 			isa = PBXGroup;
 			children = (
 				616C72D12037089800BC8CD9 /* AppDelegate.swift */,
-				61B8A3FE204C54BA00D2AA38 /* AdventureViewController.swift */,
-				61B8A404204C551000D2AA38 /* StatusViewController.swift */,
-				61B8A3FF204C54BA00D2AA38 /* ViewController+ARSessionDelegate.swift */,
-				616C72D32037089800BC8CD9 /* StaffViewController.swift */,
-				610EA27720431B7F00B72E89 /* RatingControl.swift */,
-				610C5187204445B8000358F6 /* Painting.swift */,
-				6183E58420447CCF00B2C3A3 /* StaffTableViewController.swift */,
+				61AA4688204C684600912B97 /* Staff */,
+				61AA4687204C682500912B97 /* Adventure */,
 				61AA4680204C66E700912B97 /* ARObjects */,
-				6183E582204471BB00B2C3A3 /* StaffTableViewCell.swift */,
 				61B8A3FC204C295A00D2AA38 /* Assets.xcassets */,
 				6183E58A20457F1900B2C3A3 /* Main.storyboard */,
 				616C72DA2037089A00BC8CD9 /* LaunchScreen.storyboard */,
@@ -132,6 +126,28 @@
 				61AA4681204C674E00912B97 /* paperPlane.scn */,
 			);
 			path = ARObjects;
+			sourceTree = "<group>";
+		};
+		61AA4687204C682500912B97 /* Adventure */ = {
+			isa = PBXGroup;
+			children = (
+				61B8A3FE204C54BA00D2AA38 /* AdventureViewController.swift */,
+				61B8A404204C551000D2AA38 /* StatusViewController.swift */,
+				61B8A3FF204C54BA00D2AA38 /* ViewController+ARSessionDelegate.swift */,
+			);
+			path = Adventure;
+			sourceTree = "<group>";
+		};
+		61AA4688204C684600912B97 /* Staff */ = {
+			isa = PBXGroup;
+			children = (
+				616C72D32037089800BC8CD9 /* StaffViewController.swift */,
+				610EA27720431B7F00B72E89 /* RatingControl.swift */,
+				610C5187204445B8000358F6 /* Painting.swift */,
+				6183E58420447CCF00B2C3A3 /* StaffTableViewController.swift */,
+				6183E582204471BB00B2C3A3 /* StaffTableViewCell.swift */,
+			);
+			path = Staff;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -10,6 +10,15 @@
 
 import UIKit
 
+// Properties
+
+struct PropertyKey {
+    static let name = "name"
+    static let photo = "photo"
+    static let rating = "rating"
+    static let audio = "audio"
+}
+
 class Painting{
     
     //Basic Properties of the data
@@ -17,9 +26,10 @@ class Painting{
     var name: String
     var photo: UIImage? //Optional
     var rating: Int
+    var content: String?
     
     // Initializing
-    init?(name: String, photo: UIImage?, rating: Int){ // Because of ? it is a failable initializer
+    init?(name: String, photo: UIImage?, rating: Int, content: String?){ // Because of ? it is a failable initializer
         // Initialization should fail if there's no name or rating is negative
         
         if name.isEmpty {
@@ -34,6 +44,7 @@ class Painting{
         self.name = name
         self.photo = photo
         self.rating = rating
+        self.content = content
     }
     
 }

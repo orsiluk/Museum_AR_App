@@ -1,9 +1,8 @@
-/*
- See LICENSE folder for this sample’s licensing information.
- 
- Abstract:
- Main view controller for the AR experience.
- */
+//  AdventureViewConroller.swift
+//  MuseumApp
+//
+//  Created by Orsolya Lukacs-Kisbandi on 16/02/2018.
+//  Copyright © 2018 Orsolya Lukacs-Kisbandi. All rights reserved.
 
 import ARKit
 import SceneKit
@@ -37,7 +36,7 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
         
         sceneView.delegate = self
         sceneView.session.delegate = self
-        sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints,ARSCNDebugOptions.showWorldOrigin]
+//        sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints,ARSCNDebugOptions.showWorldOrigin]
         configureLighting()
         // Hook up status view controller callback(s).
         statusViewController.restartExperienceHandler = { [unowned self] in

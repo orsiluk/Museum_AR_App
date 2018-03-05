@@ -47,5 +47,7 @@
 	<string>Camera is used for AR</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Used for augmented reality</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Used to record content</string>
 </dict>
 </plist>

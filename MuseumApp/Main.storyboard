@@ -108,7 +108,7 @@
                                             <outletCollection property="gestureRecognizers" destination="DBe-ae-mVB" appends="YES" id="fZL-Cx-auB"/>
                                         </connections>
                                     </imageView>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Content about Painting" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1Zt-fT-JDI">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Content about Painting" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1Zt-fT-JDI" userLabel="Add Content">
                                         <rect key="frame" x="83.333333333333329" y="366" width="207.33333333333337" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -144,6 +144,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="RatingControl" destination="CKp-Cf-8OZ" id="S55-wG-dwe"/>
+                        <outlet property="addContent" destination="1Zt-fT-JDI" id="8E7-MB-b9A"/>
                         <outlet property="nameTextField" destination="MBZ-WZ-i8u" id="P43-nH-Ium"/>
                         <outlet property="photoImageView" destination="Ayk-o8-ehY" id="9F4-JD-tMq"/>
                         <outlet property="saveButton" destination="mlb-io-Bc4" id="J7y-4N-KuD"/>
@@ -206,24 +207,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1PH-9K-aGG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1894.2028985507247" y="626.9021739130435"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="YTU-zt-6yq">
-            <objects>
-                <viewController id="qHh-Fa-0Og" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="WJj-jy-Gq5"/>
-                        <viewControllerLayoutGuide type="bottom" id="RGT-Bg-vtY"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Mhw-rj-eee">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="jvy-TC-uBF" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="320" y="1213"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="KOr-do-La4">
@@ -373,7 +356,7 @@
                                 <blurEffect style="light"/>
                             </visualEffectView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZRb-Mf-vmW">
-                                <rect key="frame" x="0.0" y="64" width="414" height="85"/>
+                                <rect key="frame" x="0.0" y="20" width="414" height="85"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="85" id="N65-SO-020"/>
                                 </constraints>

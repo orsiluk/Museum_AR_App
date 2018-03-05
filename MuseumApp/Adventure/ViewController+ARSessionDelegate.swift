@@ -1,9 +1,11 @@
-/*
-See LICENSE folder for this sample’s licensing information.
+//  MuseumApp
+//
+//  Created by Orsolya Lukacs-Kisbandi on 16/02/2018.
+//  Copyright © 2018 Orsolya Lukacs-Kisbandi. All rights reserved.
 
-Abstract:
-Session status management for `AdventureViewController`.
-*/
+// Abstract:
+//Session status management for `AdventureViewController`.
+
 
 import ARKit
 

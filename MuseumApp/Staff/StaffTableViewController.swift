@@ -16,24 +16,24 @@ class StaffTableViewController: UITableViewController {
     
     //MARK: Private Methods
     
-    private func loadSampleMeals() {
-        let photo1 = UIImage(named: "Painting_impression")
-        let photo2 = UIImage(named: "Painting_park")
-        let photo3 = UIImage(named: "Painting_poppies")
+    private func loadSamplePaintings() {
+        let photo1 = UIImage(named: "impression")
+        let photo2 = UIImage(named: "park")
+        let photo3 = UIImage(named: "poppies")
         
-        guard let meal1 = Painting(name: "Impression", photo: photo1, rating: 4) else {
+        guard let painting1 = Painting(name: "Impression", photo: photo1, rating: 4, content: nil) else {
             fatalError("Unable to instantiate impression")
         }
         
-        guard let meal2 = Painting(name: "Park", photo: photo2, rating: 5) else {
+        guard let painting2 = Painting(name: "Park", photo: photo2, rating: 5, content: nil) else {
             fatalError("Unable to instantiate park")
         }
         
-        guard let meal3 = Painting(name: "Poppies", photo: photo3, rating: 3) else {
+        guard let painting3 = Painting(name: "Poppies", photo: photo3, rating: 3, content: nil) else {
             fatalError("Unable to instantiate poppies")
         }
         
-        paintings += [meal1, meal2, meal3]
+        paintings += [painting1, painting2, painting3]
     }
     
     // To display dynamic data, a table view needs two important helpers: a data source and a delegate. A table view data source, as implied by its name, supplies the table view with the data it needs to display. A table view delegate helps the table view manage cell selection, row heights, and other aspects related to displaying the data.
@@ -43,7 +43,7 @@ class StaffTableViewController: UITableViewController {
         // Use the edit button item provided by the table view controller.
         navigationItem.leftBarButtonItem = editButtonItem
         
-        loadSampleMeals()
+        loadSamplePaintings()
     }
     
     override func didReceiveMemoryWarning() {
