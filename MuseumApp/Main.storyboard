@@ -40,7 +40,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="rDH-5Q-9sm" customClass="RatingControl" customModule="MuseumApp" customModuleProvider="target">
-                                            <rect key="frame" x="188" y="58" width="248" height="50"/>
+                                            <rect key="frame" x="188" y="58" width="206" height="50"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </stackView>
                                     </subviews>
@@ -115,7 +115,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="CKp-Cf-8OZ" userLabel="RatingControl" customClass="RatingControl" customModule="MuseumApp" customModuleProvider="target">
-                                        <rect key="frame" x="61" y="396" width="252" height="44"/>
+                                        <rect key="frame" x="61" y="396" width="252" height="0.0"/>
                                     </stackView>
                                 </subviews>
                                 <constraints>
