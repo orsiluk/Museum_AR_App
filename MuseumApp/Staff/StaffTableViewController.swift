@@ -5,7 +5,6 @@
 //  Created by Orsolya Lukacs-Kisbandi on 26/02/2018.
 //  Copyright © 2018 Orsolya Lukacs-Kisbandi. All rights reserved.
 //
-
 import UIKit
 import os.log
 
@@ -83,7 +82,7 @@ class StaffTableViewController: UITableViewController {
         let painting = paintings[indexPath.row]
         cell.nameLabel.text = painting.name
         cell.photoImageView.image = painting.photo
-//        cell.ratingControl.rating = painting.rating
+        //        cell.ratingControl.rating = painting.rating
         
         
         return cell
