@@ -21,15 +21,15 @@ class StaffTableViewController: UITableViewController {
         let photo2 = UIImage(named: "Painting_park")
         let photo3 = UIImage(named: "Painting_poppies")
         
-        guard let meal1 = Painting(name: "Impression", photo: photo1, rating: 4) else {
+        guard let meal1 = Painting(name: "Impression", photo: photo1) else {
             fatalError("Unable to instantiate impression")
         }
         
-        guard let meal2 = Painting(name: "Park", photo: photo2, rating: 5) else {
+        guard let meal2 = Painting(name: "Park", photo: photo2) else {
             fatalError("Unable to instantiate park")
         }
         
-        guard let meal3 = Painting(name: "Poppies", photo: photo3, rating: 3) else {
+        guard let meal3 = Painting(name: "Poppies", photo: photo3) else {
             fatalError("Unable to instantiate poppies")
         }
         
@@ -83,7 +83,7 @@ class StaffTableViewController: UITableViewController {
         let painting = paintings[indexPath.row]
         cell.nameLabel.text = painting.name
         cell.photoImageView.image = painting.photo
-        cell.ratingControl.rating = painting.rating
+//        cell.ratingControl.rating = painting.rating
         
         
         return cell

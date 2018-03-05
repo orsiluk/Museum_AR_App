@@ -39,16 +39,11 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="rDH-5Q-9sm" customClass="RatingControl" customModule="MuseumApp" customModuleProvider="target">
-                                            <rect key="frame" x="188" y="58" width="248" height="50"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        </stackView>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="nameLabel" destination="8OB-rN-W7p" id="hhg-CN-hfD"/>
                                     <outlet property="photoImageView" destination="Aeh-Cb-7bv" id="RAo-ra-pfT"/>
-                                    <outlet property="ratingControl" destination="rDH-5Q-9sm" id="P15-is-a1B"/>
                                     <segue destination="BYZ-38-t0r" kind="show" identifier="ShowDetail" id="9lg-oW-Hgr"/>
                                 </connections>
                             </tableViewCell>
@@ -90,16 +85,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="nyr-WE-eAb">
-                                <rect key="frame" x="20" y="84" width="374" height="396"/>
+                                <rect key="frame" x="20" y="84" width="374" height="454"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter painting name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MBZ-WZ-i8u">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="30"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter painting name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MBZ-WZ-i8u">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="88"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                     </textField>
-                                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="320" image="defaultPhoto" translatesAutoresizingMaskIntoConstraints="NO" id="Ayk-o8-ehY">
-                                        <rect key="frame" x="27" y="38" width="320" height="320"/>
+                                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="320" image="defaultPhoto" translatesAutoresizingMaskIntoConstraints="NO" id="Ayk-o8-ehY">
+                                        <rect key="frame" x="27" y="96" width="320" height="320"/>
                                         <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="Ayk-o8-ehY" secondAttribute="height" multiplier="1:1" id="Lwx-5U-6d2"/>
@@ -108,15 +103,12 @@
                                             <outletCollection property="gestureRecognizers" destination="DBe-ae-mVB" appends="YES" id="fZL-Cx-auB"/>
                                         </connections>
                                     </imageView>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Content about Painting" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1Zt-fT-JDI">
-                                        <rect key="frame" x="83.333333333333329" y="366" width="207.33333333333337" height="30"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Content about Painting" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1Zt-fT-JDI">
+                                        <rect key="frame" x="83.333333333333329" y="424" width="207.33333333333337" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="CKp-Cf-8OZ" userLabel="RatingControl" customClass="RatingControl" customModule="MuseumApp" customModuleProvider="target">
-                                        <rect key="frame" x="61" y="396" width="252" height="44"/>
-                                    </stackView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="MBZ-WZ-i8u" secondAttribute="trailing" id="Ov8-Oc-bn2"/>
@@ -125,6 +117,7 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="oG8-Vl-FNC" firstAttribute="top" secondItem="nyr-WE-eAb" secondAttribute="bottom" constant="198" id="G8P-33-pmP"/>
                             <constraint firstItem="nyr-WE-eAb" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" id="Zg8-vC-FsX"/>
                             <constraint firstItem="nyr-WE-eAb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="qWX-bi-wXJ"/>
                             <constraint firstItem="nyr-WE-eAb" firstAttribute="top" secondItem="MMR-9G-qqZ" secondAttribute="bottom" constant="20" id="uyB-Ny-95c"/>
@@ -143,7 +136,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="RatingControl" destination="CKp-Cf-8OZ" id="S55-wG-dwe"/>
                         <outlet property="nameTextField" destination="MBZ-WZ-i8u" id="P43-nH-Ium"/>
                         <outlet property="photoImageView" destination="Ayk-o8-ehY" id="9F4-JD-tMq"/>
                         <outlet property="saveButton" destination="mlb-io-Bc4" id="J7y-4N-KuD"/>

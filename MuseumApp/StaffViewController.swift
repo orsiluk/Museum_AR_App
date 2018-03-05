@@ -15,7 +15,7 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
     
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var photoImageView: UIImageView!
-    @IBOutlet weak var ratingControl: RatingControl!
+//    @IBOutlet weak var ratingControl: RatingControl!
     
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
@@ -38,7 +38,7 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
             navigationItem.title = painting.name
             nameTextField.text   = painting.name
             photoImageView.image = painting.photo
-            ratingControl.rating = painting.rating
+//            ratingControl.rating = painting.rating
         }
         
         // Enable the Save button only if the text field has a valid Painting name.
@@ -110,10 +110,10 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
         }
         let name = nameTextField.text ?? ""
         let photo = photoImageView.image
-        let rating = ratingControl.rating
+//        let rating = ratingControl.rating
         
         // Set the painting to be passed to StaffTableViewController after the unwind segue.
-        painting = Painting(name: name, photo: photo, rating: rating)
+        painting = Painting(name: name, photo: photo)
         
     }
     
