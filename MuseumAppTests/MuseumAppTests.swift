@@ -35,18 +35,18 @@ class MuseumAppTests: XCTestCase {
     
     // Painting class test
     // Confirm that the Painting initializer returns a Painting object when passed valid parameters.
-    func testMealInitializationSucceeds() {
+    func testPaintingInitializationSucceeds() {
         // Zero rating
-        let zeroRatingMeal = Painting.init(name: "Zero", photo: nil, rating: 0)
-        XCTAssertNotNil(zeroRatingMeal)
+        let zeroRatingPainting = Painting.init(name: "Zero", photo: nil, rating: 0)
+        XCTAssertNotNil(zeroRatingPainting)
         
         // Highest positive rating
-        let positiveRatingMeal = Painting.init(name: "Positive", photo: nil, rating: 5)
-        XCTAssertNotNil(positiveRatingMeal)
+        let positiveRatingPainting = Painting.init(name: "Positive", photo: nil, rating: 5)
+        XCTAssertNotNil(positiveRatingPainting)
     }
     
     // test fail case - negative rating
-    func testMealInitializationFails(){
+    func testPaintingInitializationFails(){
         let negativeRating = Painting.init(name: "negative", photo: nil, rating: -1)
         XCTAssertNil(negativeRating)
         

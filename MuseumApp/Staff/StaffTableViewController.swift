@@ -15,25 +15,40 @@ class StaffTableViewController: UITableViewController {
     
     //MARK: Private Methods
     
-    private func loadSampleMeals() {
+    private func loadSamplePaintings() {
         let photo1 = UIImage(named: "Painting_impression")
         let photo2 = UIImage(named: "Painting_park")
         let photo3 = UIImage(named: "Painting_poppies")
         
-        guard let meal1 = Painting(name: "Impression", photo: photo1, content:nil) else {
+        guard let painting1 = Painting(name: "Impression", photo: photo1, content:nil) else {
             fatalError("Unable to instantiate impression")
         }
         
-        guard let meal2 = Painting(name: "Park", photo: photo2, content:nil) else {
+        guard let painting2 = Painting(name: "Park", photo: photo2, content:nil) else {
             fatalError("Unable to instantiate park")
         }
         
-        guard let meal3 = Painting(name: "Poppies", photo: photo3, content:nil) else {
+        guard let painting3 = Painting(name: "Poppies", photo: photo3, content:nil) else {
             fatalError("Unable to instantiate poppies")
         }
         
-        paintings += [meal1, meal2, meal3]
+        paintings += [painting1, painting2, painting3]
     }
+    
+    private func savePaintings(){
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(paintings, toFile: Painting.ArchiveURL.path)
+        if isSuccessfulSave {
+            os_log("Paintings successfully saved.", log: OSLog.default, type: .debug)
+        } else {
+            os_log("Failed to save paintigns...", log: OSLog.default, type: .error)
+        }
+    }
+    
+    private func loadPaintings() -> [Painting]?{
+        return NSKeyedUnarchiver.unarchiveObject(withFile: Painting.ArchiveURL.path) as? [Painting]
+        // attempt to unarchive the object stored at the path Painting.ArchiveURL.path and downcast that object to an array of Painting objects
+    }
+    // Public methods
     
     // To display dynamic data, a table view needs two important helpers: a data source and a delegate. A table view data source, as implied by its name, supplies the table view with the data it needs to display. A table view delegate helps the table view manage cell selection, row heights, and other aspects related to displaying the data.
     
@@ -42,7 +57,13 @@ class StaffTableViewController: UITableViewController {
         // Use the edit button item provided by the table view controller.
         navigationItem.leftBarButtonItem = editButtonItem
         
-        loadSampleMeals()
+        // Load any saved paintings, otherwise load sample paintings.
+        if let savedPaintings = loadPaintings() {
+            paintings += savedPaintings
+        }else{
+            // load sample paintings
+            loadSamplePaintings()
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -82,14 +103,14 @@ class StaffTableViewController: UITableViewController {
         let painting = paintings[indexPath.row]
         cell.nameLabel.text = painting.name
         cell.photoImageView.image = painting.photo
-        //        cell.ratingControl.rating = painting.rating
+//        cell.addContent.text = painting.content
         
         
         return cell
     }
     
     // MARK: Actions
-    @IBAction func unwindToMealList(sender: UIStoryboardSegue) {
+    @IBAction func unwindToPaintingList(sender: UIStoryboardSegue) {
         if let sourceViewController = sender.source as? StaffViewController, let painting = sourceViewController.painting {
             
             if let selectedIndexPath = tableView.indexPathForSelectedRow {
@@ -104,6 +125,7 @@ class StaffTableViewController: UITableViewController {
                 paintings.append(painting)
                 tableView.insertRows(at: [newIndexPath], with: .automatic)
             }
+            savePaintings()
         }
     }
     
@@ -121,6 +143,7 @@ class StaffTableViewController: UITableViewController {
         if editingStyle == .delete {
             // Delete the row from the data source
             paintings.remove(at: indexPath.row)
+            savePaintings()
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
@@ -154,20 +177,20 @@ class StaffTableViewController: UITableViewController {
         case "AddItem":
             os_log("Adding a new painting.", log: OSLog.default, type: .debug)
         case "ShowDetail":
-            guard let mealDetailViewController = segue.destination as? StaffViewController else {
+            guard let paintingDetailViewController = segue.destination as? StaffViewController else {
                 fatalError("Unexpected destination: \(segue.destination)")
             }
             
-            guard let selectedMealCell = sender as? StaffTableViewCell else {
+            guard let selectedPaintingCell = sender as? StaffTableViewCell else {
                 fatalError("Unexpected sender: \(String(describing: sender))")
             }
             
-            guard let indexPath = tableView.indexPath(for: selectedMealCell) else {
+            guard let indexPath = tableView.indexPath(for: selectedPaintingCell) else {
                 fatalError("The selected cell is not being displayed by the table")
             }
             
-            let selectedMeal = paintings[indexPath.row]
-            mealDetailViewController.painting = selectedMeal
+            let selectedPainting = paintings[indexPath.row]
+            paintingDetailViewController.painting = selectedPainting
         case "HomeScreen":
             os_log("Homebutton pressed", log: OSLog.default, type: .debug)
         default:

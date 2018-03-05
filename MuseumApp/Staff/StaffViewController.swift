@@ -94,9 +94,9 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
     // Navigation
     @IBAction func cancel(_ sender: UIBarButtonItem) {
         // Depending on style of presentation (modal or push presentation), this view controller needs to be dismissed in two different ways.
-        let isPresentingInAddMealMode = presentingViewController is UINavigationController
+        let isPresentingInAddPaintingMode = presentingViewController is UINavigationController
         
-        if isPresentingInAddMealMode {
+        if isPresentingInAddPaintingMode {
             dismiss(animated: true, completion: nil)
         }else if let owningNavigationController = navigationController{
             owningNavigationController.popViewController(animated: true)
@@ -137,6 +137,7 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
         
         // Hide the keyboard - This code ensures that if the user taps the image view while typing in the text field, the keyboard is dismissed properly.
         nameTextField.resignFirstResponder()
+//        addContent.resingFirstResponder()
         print("does know I tapped")
         // UIImagePickerController is a view controller that lets a user pick media from their photo library.
         let imagePickerController = UIImagePickerController()
