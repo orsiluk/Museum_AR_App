@@ -20,15 +20,15 @@ class StaffTableViewController: UITableViewController {
         let photo2 = UIImage(named: "Painting_park")
         let photo3 = UIImage(named: "Painting_poppies")
         
-        guard let meal1 = Painting(name: "Impression", photo: photo1) else {
+        guard let meal1 = Painting(name: "Impression", photo: photo1, content:nil) else {
             fatalError("Unable to instantiate impression")
         }
         
-        guard let meal2 = Painting(name: "Park", photo: photo2) else {
+        guard let meal2 = Painting(name: "Park", photo: photo2, content:nil) else {
             fatalError("Unable to instantiate park")
         }
         
-        guard let meal3 = Painting(name: "Poppies", photo: photo3) else {
+        guard let meal3 = Painting(name: "Poppies", photo: photo3, content:nil) else {
             fatalError("Unable to instantiate poppies")
         }
         

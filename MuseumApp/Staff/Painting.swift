@@ -7,16 +7,18 @@
 // My very own data model, yeyy!
 import UIKit
 
+
+
 class Painting{
     
     //Basic Properties of the data
     
     var name: String
     var photo: UIImage? //Optional
-    //    var rating: Int
+    var content: String?
     
     // Initializing
-    init?(name: String, photo: UIImage?){ // Because of ? it is a failable initializer
+    init?(name: String, photo: UIImage?, content:String?){ // Because of ? it is a failable initializer
         // Initialization should fail if there's no name or rating is negative
         
         if name.isEmpty {
@@ -30,7 +32,7 @@ class Painting{
         // Initialize poroperties
         self.name = name
         self.photo = photo
-        //        self.rating = rating
+        self.content = content
     }
     
 }

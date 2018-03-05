@@ -14,6 +14,8 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var photoImageView: UIImageView!
     //    @IBOutlet weak var ratingControl: RatingControl!
+
+    @IBOutlet weak var addContent: UITextField!
     
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
@@ -29,6 +31,10 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
         // To set the AdventureViewController object as the delegate of its nameTextField property
         // Handle the text field’s user input through delegate callbacks.
         nameTextField.delegate = self
+        nameTextField.tag = 0
+        
+        addContent.delegate = self
+        addContent.tag = 1
         // Make sure AdventureViewController is notified when the user picks an image.
         
         // Set up views if editing an existing Painting.
@@ -37,6 +43,7 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
             nameTextField.text   = painting.name
             photoImageView.image = painting.photo
             //            ratingControl.rating = painting.rating
+            addContent.text = painting.content
         }
         
         // Enable the Save button only if the text field has a valid Painting name.
@@ -53,7 +60,9 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         updateSaveButtonState()
-        navigationItem.title = textField.text
+        if textField.tag == 0 {
+            navigationItem.title = textField.text
+        }
     }
     
     //disable the Save button when there’s no item name
@@ -108,10 +117,11 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
         }
         let name = nameTextField.text ?? ""
         let photo = photoImageView.image
+        let content = addContent.text ?? ""
         //        let rating = ratingControl.rating
         
         // Set the painting to be passed to StaffTableViewController after the unwind segue.
-        painting = Painting(name: name, photo: photo)
+        painting = Painting(name: name, photo: photo, content:content)
         
     }
     
