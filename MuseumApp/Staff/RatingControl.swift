@@ -9,15 +9,15 @@
 import UIKit
 
 @IBDesignable class RatingControl: UIStackView {
-
+    
     // You typically create a view in one of two ways: by programatically initializing the view, or by allowing the view to be loaded by the storyboard. There’s a corresponding initializer for each approach: init(frame:) for programatically initializing the view and init?(coder:) for loading the view from the storyboard.
     // You will need to implement both of these methods in your custom control. While designing the app, Interface Builder programatically instantiates the view when you add it to the canvas. At runtime, your app loads the view from the storyboard.
     
     //MARK: Properties
     private var ratingButtons = [UIButton]()
     
-//    To update the control, you need to reset the control’s buttons every time the attributes change in the storyboard.
-//    Here, you define property observers for the starSize and starCount properties. Specifically, the didSet property observer is called immediately after the property’s value is set. Your implementation then calls the setupButtons() method. This method adds new buttons using the updated size and count; however, the current implementation doesn’t get rid of the old buttons.
+    //    To update the control, you need to reset the control’s buttons every time the attributes change in the storyboard.
+    //    Here, you define property observers for the starSize and starCount properties. Specifically, the didSet property observer is called immediately after the property’s value is set. Your implementation then calls the setupButtons() method. This method adds new buttons using the updated size and count; however, the current implementation doesn’t get rid of the old buttons.
     
     @IBInspectable var starSize: CGSize = CGSize(width: 44.0, height: 44.0){
         didSet {
@@ -142,5 +142,6 @@ import UIKit
             button.accessibilityValue = valueString
         }
     }
-
+    
 }
+
