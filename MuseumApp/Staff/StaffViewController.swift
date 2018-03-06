@@ -160,6 +160,7 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
     func getAudioFileUrl() -> URL{
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let docsDirect = paths[0]
+        // Here I want to pass in the painting's name, that way we can load it - Find a way to figure which painting it is - could save in a field the filename instead of anything else
         let audioUrl = docsDirect.appendingPathComponent("recording.m4a")
         return audioUrl
     }

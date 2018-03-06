@@ -19,6 +19,8 @@ class StaffTableViewController: UITableViewController {
         let photo1 = UIImage(named: "Painting_impression")
         let photo2 = UIImage(named: "Painting_park")
         let photo3 = UIImage(named: "Painting_poppies")
+        let photo4 = UIImage(named: "Painting_starrynight")
+        let photo5 = UIImage(named: "Painting_princess")
         
         guard let painting1 = Painting(name: "Impression", photo: photo1, content:nil) else {
             fatalError("Unable to instantiate impression")
@@ -32,7 +34,15 @@ class StaffTableViewController: UITableViewController {
             fatalError("Unable to instantiate poppies")
         }
         
-        paintings += [painting1, painting2, painting3]
+        guard let painting4 = Painting(name: "Starry night", photo: photo4, content:nil) else {
+            fatalError("Unable to instantiate starrynight")
+        }
+        
+        guard let painting5 = Painting(name: "Knight and the princess", photo: photo5, content:nil) else {
+            fatalError("Unable to instantiate princess")
+        }
+        
+        paintings += [painting1, painting2, painting3, painting4, painting5]
     }
     
     private func savePaintings(){
