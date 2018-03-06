@@ -36,7 +36,7 @@
                                                 <constraint firstAttribute="height" constant="180" id="Txp-a7-w67"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8OB-rN-W7p">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8OB-rN-W7p">
                                             <rect key="frame" x="188" y="11" width="206" height="28"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="206" id="D3i-lD-RAE"/>
@@ -50,7 +50,7 @@
                                     <constraints>
                                         <constraint firstItem="Aeh-Cb-7bv" firstAttribute="top" secondItem="7uE-bb-Coy" secondAttribute="top" id="1VR-Bd-unM"/>
                                         <constraint firstItem="8OB-rN-W7p" firstAttribute="top" secondItem="7uE-bb-Coy" secondAttribute="topMargin" id="QJk-xC-Xg9"/>
-                                        <constraint firstAttribute="trailing" secondItem="8OB-rN-W7p" secondAttribute="trailing" constant="8" id="RY6-Tp-ije"/>
+                                        <constraint firstAttribute="trailing" secondItem="8OB-rN-W7p" secondAttribute="trailing" constant="20" id="RY6-Tp-ije"/>
                                         <constraint firstItem="Aeh-Cb-7bv" firstAttribute="leading" secondItem="7uE-bb-Coy" secondAttribute="leading" id="VpX-eB-moH"/>
                                         <constraint firstItem="Aeh-Cb-7bv" firstAttribute="centerY" secondItem="7uE-bb-Coy" secondAttribute="centerY" id="nTK-sL-w2l"/>
                                         <constraint firstItem="8OB-rN-W7p" firstAttribute="leading" secondItem="Aeh-Cb-7bv" secondAttribute="trailing" constant="8" id="zvJ-lR-rP4"/>
@@ -121,7 +121,7 @@
                                             <outletCollection property="gestureRecognizers" destination="DBe-ae-mVB" appends="YES" id="fZL-Cx-auB"/>
                                         </connections>
                                     </imageView>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Content about Painting" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1Zt-fT-JDI">
+                                    <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="leading" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Content about Painting" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1Zt-fT-JDI">
                                         <rect key="frame" x="40" y="376" width="294" height="78"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
