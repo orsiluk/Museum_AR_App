@@ -106,7 +106,7 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
     /// - Tag: ARReferenceImage-Loading
     func resetTracking() {
         
-        //        guard let referenceImages = ARReferenceImage.referenceImages(inGroupNamed: "AR Resources-1", bundle: nil) else {
+        //  guard let referenceImages = ARReferenceImage.referenceImages(inGroupNamed: "AR Resources-1", bundle: nil) else {
         //            fatalError("Missing expected asset catalog resources.")
         //        }
         guard let referenceImages = ARReferenceImage.referenceImages(inGroupNamed: "Paintings", bundle: nil) else {
@@ -162,6 +162,24 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
         carNode.position = SCNVector3(x, y, z)
         carNode.scale = SCNVector3(0.2, 0.2, 0.2)
         carNode.eulerAngles.x = -.pi / 2
+        return carNode
+    }
+    
+    func addWoman(x: Float = 0, y: Float = 0, z: Float = 0) -> SCNNode {
+        // if object found return it, else draw a red circle
+        guard let carScene = SCNScene(named: "lady.dae") else {
+            print("Object not found!")
+            return self.addObject(color: "red", x: x, y: y, z: z) }
+        let carNode = SCNNode()
+        let carSceneChildNodes = carScene.rootNode.childNodes
+        
+        for childNode in carSceneChildNodes {
+            carNode.addChildNode(childNode)
+        }
+        
+        carNode.position = SCNVector3(x, y, z)
+        carNode.scale = SCNVector3(0.2, 0.2, 0.2)
+//        carNode.eulerAngles.x = -.pi / 2
         return carNode
     }
     
@@ -237,6 +255,10 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
                 //                node.addChildNode(self.addObject(color: "green", x: 0, y: 0.2, z: 0.2))
                 // add object relative to the center of the image
                 node.addChildNode(self.addPaperPlane(x: planeNode.position.x-Float(referenceImage.physicalSize.width)/2 - 0.1, y:planeNode.position.y, z:planeNode.position.z+Float(referenceImage.physicalSize.height)/2))
+            }else if (referenceImage.name == "princess"){
+                // add object relative to the center of the image
+                print("Found Princess")
+                node.addChildNode(self.addWoman(x: planeNode.position.x-Float(referenceImage.physicalSize.width)/2 - 0.1, y:planeNode.position.y, z:planeNode.position.z+Float(referenceImage.physicalSize.height)/2))
             }else{
 //                node.addChildNode(self.addPaperPlane(x:0, y:0.1, z:0.1))
                 node.addChildNode(self.addObject(color: "green", x: planeNode.position.x-Float(referenceImage.physicalSize.width)/2 - 0.1, y:planeNode.position.y, z:planeNode.position.z+Float(referenceImage.physicalSize.height)/2))

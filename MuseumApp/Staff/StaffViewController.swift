@@ -143,7 +143,7 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
             recordButton.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
             playButton.isEnabled = false
         }
-        catch let error {
+        catch let error{
             os_log("Failed to record!")
         }
     }

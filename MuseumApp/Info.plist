@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>MuseumAR</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -20,6 +22,12 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Camera is used for AR</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Used for augmented reality</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Used to record content</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Allows you to add photos to your painting</string>
 	<key>UILaunchStoryboardName</key>
@@ -43,11 +51,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSCameraUsageDescription</key>
-	<string>Camera is used for AR</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Used for augmented reality</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Used to record content</string>
 </dict>
 </plist>

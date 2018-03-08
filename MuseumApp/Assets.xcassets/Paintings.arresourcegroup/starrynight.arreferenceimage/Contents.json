@@ -2,7 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "monet.jpg"
+      "filename" : "starrynight.jpg"
     }
   ],
   "info" : {
@@ -10,7 +10,7 @@
     "author" : "xcode"
   },
   "properties" : {
-    "width" : 12,
+    "width" : 15,
     "unit" : "centimeters"
   }
 }
