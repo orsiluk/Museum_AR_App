@@ -47,7 +47,7 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        // Prevent the screen from being dimmed to avoid interuppting the AR experience.
+        // Prevent the screen from going dark to avoid interuppting the AR experience.
         UIApplication.shared.isIdleTimerDisabled = true
         
         // Start the AR experience
@@ -60,157 +60,60 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
         session.pause()
     }
     
-    // Make things appare on tap --  Not working yet
-    @objc
-    func handleTap(_ gestureRecognize: UIGestureRecognizer) {
-        // retrieve the SCNView
-        let scnView = self.view as! SCNView
-        
-        // check what nodes are tapped
-        let p = gestureRecognize.location(in: scnView)
-        let hitResults = scnView.hitTest(p, options: [:])
-        // check that we clicked on at least one object
-        if hitResults.count > 0 {
-            // retrieved the first clicked object
-            let result = hitResults[0]
-            
-            // get its material
-            let material = result.node.geometry!.firstMaterial!
-            
-            // highlight it
-            SCNTransaction.begin()
-            SCNTransaction.animationDuration = 0.5
-            
-            // on completion - unhighlight
-            SCNTransaction.completionBlock = {
-                SCNTransaction.begin()
-                SCNTransaction.animationDuration = 0.5
-                
-                material.emission.contents = UIColor.black
-                
-                SCNTransaction.commit()
-            }
-            
-            material.emission.contents = UIColor.red
-            
-            SCNTransaction.commit()
-        }
-    }
+    // Image detection setup
     
-    // MARK: - Session management (Image detection setup)
-    
-    /// Prevents restarting the session while a restart is in progress.
+    // Prevents restarting the session while a restart is in progress.
     var isRestartAvailable = true
     
-    /// Creates a new AR configuration to run on the `session`.
-    /// - Tag: ARReferenceImage-Loading
+    // Creates a new AR configuration to run on the `session`.
+    
     func resetTracking() {
-        
-        //  guard let referenceImages = ARReferenceImage.referenceImages(inGroupNamed: "AR Resources-1", bundle: nil) else {
-        //            fatalError("Missing expected asset catalog resources.")
-        //        }
+
         guard let referenceImages = ARReferenceImage.referenceImages(inGroupNamed: "Paintings", bundle: nil) else {
             fatalError("Missing expected asset catalog resources.")
         }
         
-        let configuration = ARWorldTrackingConfiguration()
-        configuration.detectionImages = referenceImages
+        let configuration = ARWorldTrackingConfiguration() // Create configuration that detects six degrees of freedom (roll,pitch,yaw,x,y,z)
+        configuration.detectionImages = referenceImages // Specify what we want to detect
         session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
         
-        statusViewController.scheduleMessage("Look around to detect images", inSeconds: 7.5, messageType: .contentPlacement)
+        statusViewController.scheduleMessage("Look around to find Paintings", inSeconds: 8, messageType: .contentPlacement)
     }
     
-    func addObject(color:String,x:Float,y:Float,z:Float) -> SCNNode{
-        // Changes color and position of object based on input (later add other things like characters animations information etc)
-        let myObect = SCNNode()
-        myObect.geometry = SCNBox(width: 0.05, height: 0.05, length: 0.05, chamferRadius: 0.025)
-        if color=="red"{
-            myObect.geometry?.firstMaterial?.diffuse.contents = UIColor.red
-        }else if color=="blue"{
-            myObect.geometry?.firstMaterial?.diffuse.contents = UIColor.blue
-        } else{
-            myObect.geometry?.firstMaterial?.diffuse.contents = UIColor.orange
+    // Add AR object to the scene
+    func addObjectToScene(name: String? = "default",x: Float = 0, y: Float = 0, z: Float = 0, scale: Float? = 1) -> SCNNode{ // Name and scale are optional
+        let myObject = SCNNode() // Create Scenen node
+        
+        if name == "default"{
+            //
+            myObject.geometry = SCNBox(width: 0.1, height: 0.1, length: 0.1, chamferRadius: 0.05)
+            myObject.geometry?.firstMaterial?.diffuse.contents = UIColor.red
+            print("Input was \"default\" so generated a red sphere")
+        }else {
+            guard let objScene = SCNScene(named: "\(name ?? "default")" + ".dae") else { // Very insecure - FIX LATER
+                print("Object not found!")
+                return self.addObjectToScene(name:"default", x: x, y: y, z: z, scale:scale) }
+            let objChildNodes = objScene.rootNode.childNodes
+            
+            for childNode in objChildNodes{
+                myObject.addChildNode(childNode)
+            }
         }
         
-        myObect.position = SCNVector3(x,y,z)
-        return myObect
+        myObject.position = SCNVector3(x, y, z)
+        myObject.scale = SCNVector3(scale!, scale!, scale!)
+        myObject.eulerAngles.x = -.pi / 2 // This might be a problem later - We rotate everything 90 degrees to the left
+        
+        return myObject
     }
-    
-    func addPaperPlane(x: Float = 0, y: Float = 0, z: Float = 0) -> SCNNode{
-        // if object found return it, else draw a red circle
-        guard let paperPlaneScene = SCNScene(named: "paperPlane.scn"), let paperPlaneNode = paperPlaneScene.rootNode.childNode(withName: "paperPlane", recursively: true) else {
-            print("Object not found!")
-            return self.addObject(color: "red", x: x, y: y, z: z)}
-        paperPlaneNode.position = SCNVector3(x, y, z)
-//        sceneView.scene.rootNode.addChildNode(paperPlaneNode)
-        paperPlaneNode.eulerAngles.x = -.pi / 2
-        return paperPlaneNode
-    }
-    
-    func addCar(x: Float = 0, y: Float = 0, z: Float = 0) -> SCNNode {
-        // if object found return it, else draw a red circle
-        guard let carScene = SCNScene(named: "car.dae") else {
-            print("Object not found!")
-            return self.addObject(color: "red", x: x, y: y, z: z) }
-        let carNode = SCNNode()
-        let carSceneChildNodes = carScene.rootNode.childNodes
-        
-        for childNode in carSceneChildNodes {
-            carNode.addChildNode(childNode)
-        }
-        
-        carNode.position = SCNVector3(x, y, z)
-        carNode.scale = SCNVector3(0.2, 0.2, 0.2)
-        carNode.eulerAngles.x = -.pi / 2
-        return carNode
-    }
-    
-    func addWoman(x: Float = 0, y: Float = 0, z: Float = 0) -> SCNNode {
-        // if object found return it, else draw a red circle
-        guard let carScene = SCNScene(named: "lady.dae") else {
-            print("Object not found!")
-            return self.addObject(color: "red", x: x, y: y, z: z) }
-        let carNode = SCNNode()
-        let carSceneChildNodes = carScene.rootNode.childNodes
-        
-        for childNode in carSceneChildNodes {
-            carNode.addChildNode(childNode)
-        }
-        
-        carNode.position = SCNVector3(x, y, z)
-        carNode.scale = SCNVector3(0.2, 0.2, 0.2)
-//        carNode.eulerAngles.x = -.pi / 2
-        return carNode
-    }
-    
-    func addFly(x: Float = 0, y: Float = 0, z: Float = 0)-> SCNNode{
-        // if object found return it, else draw a red circle
-        guard let flyScene = SCNScene(named: "myFly.dae") else {
-            print("Object not found!")
-            return self.addObject(color: "red", x: x, y: y, z: z) }
-        let flyNode = SCNNode()
-        let flySceneChildNodes = flyScene.rootNode.childNodes
-        
-        for childNode in flySceneChildNodes {
-            flyNode.addChildNode(childNode)
-        }
-        
-        flyNode.position = SCNVector3(x, y, z)
-        flyNode.scale = SCNVector3(0.02, 0.02, 0.02)
-        flyNode.eulerAngles.x = -.pi / 2
-        return flyNode
-    }
-    
+ 
     func configureLighting() {
         //COnfigure lighting for objects
         sceneView.autoenablesDefaultLighting = true
         sceneView.automaticallyUpdatesLighting = true
     }
-    
-    
-    
-    // MARK: - ARSCNViewDelegate (Image detection results)
-    /// - Tag: ARImageAnchor-Visualizing
+
+    // Display AR objects based on the detected paintings
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         guard let imageAnchor = anchor as? ARImageAnchor else { return }
         // anchor contains inormation such as where the image was detected and the reference image we compared it to
@@ -242,26 +145,25 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
             node.addChildNode(planeNode)
             //Depending on which node I attache this to the reference point changes If I add it to planeNode whatever is applied to that node (animation etc. will happen to this obejct too)
             // node position is in the center of the detected image
+            let obj_pos_x = planeNode.position.x - Float(referenceImage.physicalSize.width)/2 - 0.1
+            let obj_pos_y = planeNode.position.y
+            let obj_pos_z = planeNode.position.z + Float(referenceImage.physicalSize.height)/2
+//            let scale: Float = 0.25
             
             if (referenceImage.name == "poppies"){
-//                node.addChildNode(self.addObject(color: "red", x: 0, y: 0.1, z: 0.2))
                 print(" :) nodeposition: \(node.position)")
                 // add object relative to the center of the image
-                node.addChildNode(self.addCar(x: planeNode.position.x-Float(referenceImage.physicalSize.width)/2 - 0.1, y:planeNode.position.y, z:planeNode.position.z+Float(referenceImage.physicalSize.height)/2))
+                node.addChildNode(self.addObjectToScene(name: "car", x: obj_pos_x, y: obj_pos_y, z: obj_pos_z, scale: 0.25))
             }else if (referenceImage.name == "park"){
                 // add object relative to the center of the image
-                node.addChildNode(self.addFly(x: planeNode.position.x-Float(referenceImage.physicalSize.width)/2 - 0.1, y:planeNode.position.y, z:planeNode.position.z+Float(referenceImage.physicalSize.height)/2))
-            }else if (referenceImage.name == "monet"){
-                //                node.addChildNode(self.addObject(color: "green", x: 0, y: 0.2, z: 0.2))
-                // add object relative to the center of the image
-                node.addChildNode(self.addPaperPlane(x: planeNode.position.x-Float(referenceImage.physicalSize.width)/2 - 0.1, y:planeNode.position.y, z:planeNode.position.z+Float(referenceImage.physicalSize.height)/2))
+                node.addChildNode(self.addObjectToScene(name: "myFly", x: obj_pos_x, y: obj_pos_y, z: obj_pos_z, scale: 0.02))
             }else if (referenceImage.name == "princess"){
+                
                 // add object relative to the center of the image
-                print("Found Princess")
-                node.addChildNode(self.addWoman(x: planeNode.position.x-Float(referenceImage.physicalSize.width)/2 - 0.1, y:planeNode.position.y, z:planeNode.position.z+Float(referenceImage.physicalSize.height)/2))
-            }else{
-//                node.addChildNode(self.addPaperPlane(x:0, y:0.1, z:0.1))
-                node.addChildNode(self.addObject(color: "green", x: planeNode.position.x-Float(referenceImage.physicalSize.width)/2 - 0.1, y:planeNode.position.y, z:planeNode.position.z+Float(referenceImage.physicalSize.height)/2))
+                node.addChildNode(self.addObjectToScene(name: "paperPlane", x: obj_pos_x, y: obj_pos_y, z: obj_pos_z, scale: 1))
+            }
+            else{
+                node.addChildNode(self.addObjectToScene(name: "default", x: obj_pos_x, y: obj_pos_y, z: obj_pos_z, scale: 1))
             }
             
 //             Tap gesture recognizer
