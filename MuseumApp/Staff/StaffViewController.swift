@@ -16,11 +16,10 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var photoImageView: UIImageView!
     //    @IBOutlet weak var ratingControl: RatingControl!
-
     @IBOutlet weak var addContent: UITextField!
-    
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
+    @IBOutlet weak var paintingSize_x: UITextField!
     /*
      This value is either passed by `StaffTableViewController` in `prepare(for:sender:)`
      or constructed as part of adding a new painting.
@@ -44,6 +43,9 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
         
         addContent.delegate = self
         addContent.tag = 1
+        
+        paintingSize_x.delegate = self
+        paintingSize_x.tag = 2
         // Make sure AdventureViewController is notified when the user picks an image.
         
         // Set up views if editing an existing Painting.
@@ -53,6 +55,7 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
             photoImageView.image = painting.photo
             //            ratingControl.rating = painting.rating
             addContent.text = painting.content
+            paintingSize_x.text = "\(String(describing: painting.phisical_size_x))"
         }
         
         // Enable the Save button only if the text field has a valid Painting name.
@@ -67,7 +70,7 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
                 // Microphone allowed, do what you like!
                 self.setUpUI()
             } else {
-                // User denied microphone. Tell them off!
+                fatalError("Recording acess denied")
                 
             }
         }
@@ -161,7 +164,7 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let docsDirect = paths[0]
         // Here I want to pass in the painting's name, that way we can load it - Find a way to figure which painting it is - could save in a field the filename instead of anything else
-        let audioUrl = docsDirect.appendingPathComponent("recording.m4a")
+        let audioUrl = docsDirect.appendingPathComponent("\(painting!.name).m4a")
         return audioUrl
     }
     
@@ -223,6 +226,7 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
     }
     
     //MARK: UIImagePickerControllerDelegate
+    
     // This is how you make sure nothing bad happens if you press cancel
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         // Dismiss if user cancelled
@@ -266,13 +270,38 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
             os_log("The save button was not pressed, cancelling", log: OSLog.default, type: .debug)
             return
         }
+
         let name = nameTextField.text ?? ""
         let photo = photoImageView.image
         let content = addContent.text ?? ""
+        let gotSize = paintingSize_x.text ?? ""
+//        if gotSize.isEmpty {
+//            print("IT WAS EMPTY!!!")
+//            let alert = UIAlertController(title: "No dimensions added!", message: "You need to input the physical width of the painting to be able detect it later. ", preferredStyle: .alert)
+//            //            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: nil))
+//            //            alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+//
+//            //            self.present(alert, animated: true)
+//
+//            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+//            alert.addTextField(configurationHandler: { textField in textField.placeholder = "Input the size here..." })
+//
+////            alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { action in
+////
+////                gotSize = (alert.textFields?.first?.text)!
+////                print("Inputted size is: \(gotSize)")
+////
+////            }))
+////            print("NOW IT SHOULDNT BE EMPTY \(gotSize)")
+//
+//            self.present(alert, animated: true)
+//        }
+        let pSize = Float(gotSize)
+        let phisical_size_x = CGFloat(pSize!) // Add a field to retrive it!
         //        let rating = ratingControl.rating
         
         // Set the painting to be passed to StaffTableViewController after the unwind segue.
-        painting = Painting(name: name, photo: photo, content:content)
+        painting = Painting(name: name, photo: photo!, content:content, phisical_size_x:phisical_size_x)
         
     }
     
@@ -288,7 +317,7 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
         
         // Hide the keyboard - This code ensures that if the user taps the image view while typing in the text field, the keyboard is dismissed properly.
         nameTextField.resignFirstResponder()
-//        addContent.resingFirstResponder()
+        //        addContent.resingFirstResponder()
         print("does know I tapped")
         // UIImagePickerController is a view controller that lets a user pick media from their photo library.
         let imagePickerController = UIImagePickerController()
@@ -305,5 +334,8 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
         // Disable the Save button if the text field is empty.
         let text = nameTextField.text ?? ""
         saveButton.isEnabled = !text.isEmpty
+        
+        let size = paintingSize_x.text ?? ""
+        saveButton.isEnabled = !size.isEmpty
     }
 }
