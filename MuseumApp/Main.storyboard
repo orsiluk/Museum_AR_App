@@ -100,7 +100,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8lz-SZ-EeA">
-                                <rect key="frame" x="0.0" y="72" width="414" height="656"/>
+                                <rect key="frame" x="0.0" y="28" width="414" height="700"/>
                                 <subviews>
                                     <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="nyr-WE-eAb">
                                         <rect key="frame" x="40" y="8" width="334" height="458"/>
@@ -168,6 +168,7 @@
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="k77-Oh-LLk">
                             <connections>
                                 <action selector="cancel:" destination="BYZ-38-t0r" id="8WH-KJ-FBp"/>
+                                <segue destination="9vI-sC-WqU" kind="show" id="tIO-xV-IQp"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="mlb-io-Bc4">
@@ -477,5 +478,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="fve-YL-rqQ"/>
         <segue reference="9lg-oW-Hgr"/>
+        <segue reference="tIO-xV-IQp"/>
     </inferredMetricsTieBreakers>
 </document>

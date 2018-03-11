@@ -8,8 +8,8 @@ import ARKit
 import SceneKit
 import UIKit
 import os.log
+import AVFoundation
 
-//import StatusViewControler
 
 class AdventureViewController: UIViewController, ARSCNViewDelegate {
     
@@ -34,6 +34,7 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
     // Dictionary of <ImageAnchor, Planeoverlay> that has all detected paintings in it
     var foundPaintings = [ARImageAnchor: SCNNode]()
     
+    var player : AVAudioPlayer?
     // MARK: - View Controller Life Cycle
     
     override func viewDidLoad() {
@@ -41,11 +42,29 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
         
         sceneView.delegate = self
         sceneView.session.delegate = self
-//        sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints,ARSCNDebugOptions.showWorldOrigin]
+        //        sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints,ARSCNDebugOptions.showWorldOrigin]
+        
+        //add tap gesture
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(rec:)))
+        self.sceneView.addGestureRecognizer(tapGesture)
         configureLighting()
         // Hook up status view controller callback(s).
         statusViewController.restartExperienceHandler = { [unowned self] in
             self.restartExperience()
+        }
+    }
+    
+    //Method called when tap
+    @objc func handleTap(rec: UITapGestureRecognizer){
+        
+        if rec.state == .ended {
+            let location: CGPoint = rec.location(in: sceneView)
+            let hits = self.sceneView.hitTest(location, options: nil)
+            if !hits.isEmpty{
+                let tappedNode = hits.first?.node
+                print("---- Tapped Node: \(String(describing: tappedNode?.parent?.name))")
+                self.playSound(name: String(describing: tappedNode!.parent!.name!))
+            }
         }
     }
     
@@ -77,15 +96,15 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
             fatalError("Missing expected asset catalog resources.")
         }
         
-        print("----------------- \(referenceImages)")
+        //        print("----------------- \(referenceImages)")
         let configuration = ARWorldTrackingConfiguration() // Create configuration that detects six degrees of freedom (roll,pitch,yaw,x,y,z)
-
-//        print("Reference images \(referenceImages)")
-//        print("Configuration images \(configuration)")
-
+        
+        //        print("Reference images \(referenceImages)")
+        //        print("Configuration images \(configuration)")
+        
         
         let savedPaintings = loadPaintings()
-//        var loadedRefImages = [ARReferenceImage]()
+        //        var loadedRefImages = [ARReferenceImage]()
         if !(savedPaintings == nil){
             // https://developer.apple.com/documentation/arkit/arreferenceimage/2942252-init
             for loaded in (savedPaintings)! {
@@ -102,45 +121,79 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
         statusViewController.scheduleMessage("Look around to find Paintings", inSeconds: 8, messageType: .contentPlacement)
     }
     
+    
+    
     private func loadPaintings() -> [Painting]?{
         print("urlpath  :      \(Painting.ArchiveURL.path)")
         return NSKeyedUnarchiver.unarchiveObject(withFile: Painting.ArchiveURL.path) as? [Painting]
         // attempt to unarchive the object stored at the path Painting.ArchiveURL.path and downcast that object to an array of Painting objects
     }
     
-//    func loadPhotosFromDevice() -> [CGImage]{
-//        let fileManager = FileManager.default
-//        var photos = [CGImage]()
-////        let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
-//        do {
-//            let fileURLs = try fileManager.contentsOfDirectory(at: Painting.DocumentsDirectory, includingPropertiesForKeys: nil)
-//            // process files
-//            print("............................. \(fileURLs)")
-//            for thisFile in fileURLs {
-//                print(thisFile.path)
-//                let photo = NSKeyedUnarchiver.unarchiveObject(withFile: thisFile.path) as! CGImage
-////                guard let name = aDecoder.decodeObject(forKey: Painting.PropertyKey.name) as? String else {
-////                    os_log("Unable to decode the name for a Painting object.", log: OSLog.default, type: .debug)
-////                    return photos
-////                }
-//
-//                // Because photo is an optional property of Painting, just use conditional cast.
-////                let photo = aDecoder.decodeObject(forKey: Painting.PropertyKey.photo) as! CGImage
-//                photos.append(photo)
-//            }
-//
-//
-//        } catch {
-//            print("Error while enumerating file: \(error.localizedDescription)")
-//        }
-//
-//        // The name is not optional. If name string can't be decoded, the initializer should fail.
-//
-//
-//        return photos
-//    }
+    //    func loadPhotosFromDevice() -> [CGImage]{
+    //        let fileManager = FileManager.default
+    //        var photos = [CGImage]()
+    ////        let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
+    //        do {
+    //            let fileURLs = try fileManager.contentsOfDirectory(at: Painting.DocumentsDirectory, includingPropertiesForKeys: nil)
+    //            // process files
+    //            print("............................. \(fileURLs)")
+    //            for thisFile in fileURLs {
+    //                print(thisFile.path)
+    //                let photo = NSKeyedUnarchiver.unarchiveObject(withFile: thisFile.path) as! CGImage
+    ////                guard let name = aDecoder.decodeObject(forKey: Painting.PropertyKey.name) as? String else {
+    ////                    os_log("Unable to decode the name for a Painting object.", log: OSLog.default, type: .debug)
+    ////                    return photos
+    ////                }
+    //
+    //                // Because photo is an optional property of Painting, just use conditional cast.
+    ////                let photo = aDecoder.decodeObject(forKey: Painting.PropertyKey.photo) as! CGImage
+    //                photos.append(photo)
+    //            }
+    //
+    //
+    //        } catch {
+    //            print("Error while enumerating file: \(error.localizedDescription)")
+    //        }
+    //
+    //        // The name is not optional. If name string can't be decoded, the initializer should fail.
+    //
+    //
+    //        return photos
+    //    }
+    func getAudioFileUrl(name: String) -> URL{
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let docsDirect = paths[0]
+        // Here I want to pass in the painting's name, that way we can load it - Find a way to figure which painting it is - could save in a field the filename instead of anything else
+        let audioUrl = docsDirect.appendingPathComponent("\(name).m4a")
+        print("Got audio URL")
+        return audioUrl
+    }
     
-    
+    func playSound(name: String){
+        let url = getAudioFileUrl(name:name)
+        print("Playing sound for painting \(name)")
+        print("URL in ADVENTURE: \(url)")
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: .mixWithOthers)
+            print("Playback OK")
+            try AVAudioSession.sharedInstance().setActive(true)
+            print("Session is Active")
+        } catch {
+            print(error)
+        }
+        do {
+            // AVAudioPlayer setting up with the saved file URL
+            let sound = try AVAudioPlayer(contentsOf: url)
+            self.player = sound
+            sound.delegate = self as? AVAudioPlayerDelegate
+            sound.prepareToPlay()
+            sound.play()
+        } catch {
+            print("error loading file")
+            return
+            // couldn't load file :(
+        }
+    }
     
     // Display AR objects based on the detected paintings
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
@@ -159,35 +212,35 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
             let obj_pos_x = planeNode.position.x - Float(referenceImage.physicalSize.width)/2 - 0.1
             let obj_pos_y = planeNode.position.y
             let obj_pos_z = planeNode.position.z + Float(referenceImage.physicalSize.height)/2
-//            let scale: Float = 0.25
+            //            let scale: Float = 0.25
             var newNode = SCNNode()
+            
             if (referenceImage.name == "poppies"){
                 print(" :) nodeposition: \(node.position)")
                 // add object relative to the center of the image
                 newNode = self.addObjectToScene(name: "car", x: obj_pos_x, y: obj_pos_y, z: obj_pos_z, scale: 0.25)
-                node.addChildNode(newNode)
             }else if (referenceImage.name == "park"){
                 // add object relative to the center of the image
                 newNode = self.addObjectToScene(name: "myFly", x: obj_pos_x, y: obj_pos_y, z: obj_pos_z, scale: 0.02)
-                node.addChildNode(newNode)
             }else if (referenceImage.name == "princess"){
                 
                 // add object relative to the center of the image
                 newNode = self.addObjectToScene(name: "paperPlane", x: obj_pos_x, y: obj_pos_y, z: obj_pos_z, scale: 1)
-                node.addChildNode(newNode)
             }
             else{
-                newNode = self.addObjectToScene(name: "default", x: obj_pos_x, y: obj_pos_y, z: obj_pos_z, scale: 1)
-                node.addChildNode(newNode)
+                newNode = self.addObjectToScene(name: "default", x: obj_pos_x, y: obj_pos_y, z: obj_pos_z, scale: 10)
             }
+            newNode.name = referenceImage.name
+            node.addChildNode(newNode)
+
             self.foundPaintings[imageAnchor] = planeNode // add to the dictionary a pair of <ImageAnchor,SCNNode()> where SCNNode is my new plane that is over the painting
-            
+            //self.playSound(name: "Painting_\(String(describing: referenceImage.name))")
         }
         
         // Update the paintings location -- I hope this will work
         
         func renderer(_ renderer: SCNSceneRenderer, willUpdate node: SCNNode, for anchor: ARAnchor){
-        
+            
         }
         
         
@@ -197,18 +250,6 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
             self.statusViewController.showMessage("Detected image “\(imageName)”")
         }
     }
-    
-    /*@IBAction func reCenter(_ sender: Any) {
-        // I might not want this at all. If I use the detcted images as reference point I don't need to re-initialize
-        self.sceneView.session.pause()
-        //To remove all children :
-//        self.sceneView.scene.rootNode.enumerateChildNodes{(node, _) in
-//             node.removeFromParentNode()}
-//        self.sceneView.session.run(configuration: ARConfiguration, options: self.resetTracking)
-     
-        self.sceneView.session.run(configuration, options: .resetTracking)
-    }
-    */
     
     func configureLighting() {
         //COnfigure lighting for objects
@@ -221,7 +262,7 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
         
         // To add a picture over instead we can do this:
         /* plane.materials = [SCNMaterial()]
-        plane.materials[0].diffuse.contents = UIImage(named: imageName) */
+         plane.materials[0].diffuse.contents = UIImage(named: imageName) */
         
         
         let plane = SCNPlane(width: detectedPainting.physicalSize.width,
@@ -268,6 +309,7 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
         print("Object with name \(String(describing: name)) was added")
         return myObject
     }
+    
     
     var imageHighlightAction: SCNAction {
         return .sequence([

@@ -83,14 +83,10 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
     func setUpUI() {
         recordButton.translatesAutoresizingMaskIntoConstraints = false
         playButton.translatesAutoresizingMaskIntoConstraints = false
-        let myView = view.subviews[0].subviews[0]
         let anchorView = view.subviews[0].subviews[0].subviews[3]
-//        print("VIEW : \(view)")
-//        print("VIEW.s : \(view.subviews[0].subviews[0])")
-//        let firstView = myView.arrangedSubviews[0]
-//        firstView.isHidden = true
-        myView.addSubview(recordButton)
-        myView.addSubview(playButton)
+
+        view.addSubview(recordButton)
+        view.addSubview(playButton)
         
         // Adding constraints to Record button
         recordButton.centerXAnchor.constraint(equalTo: anchorView.centerXAnchor, constant: 8).isActive = true
@@ -187,7 +183,7 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
     
     func playSound(){
         let url = getAudioFileUrl()
-        
+        print("URL in STAFF: \(url)")
         do {
             // AVAudioPlayer setting up with the saved file URL
             let sound = try AVAudioPlayer(contentsOf: url)
