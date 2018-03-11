@@ -86,13 +86,16 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
         
         let savedPaintings = loadPaintings()
 //        var loadedRefImages = [ARReferenceImage]()
-        // https://developer.apple.com/documentation/arkit/arreferenceimage/2942252-init
-        for loaded in (savedPaintings)! {
-            let loadedPhoto = loaded.photo
-            let newRef = ARReferenceImage(loadedPhoto as! CGImage, orientation: CGImagePropertyOrientation.up, physicalWidth: loaded.phisical_size_x!)
-            referenceImages.insert(newRef)
+        if !(savedPaintings == nil){
+            // https://developer.apple.com/documentation/arkit/arreferenceimage/2942252-init
+            for loaded in (savedPaintings)! {
+                let loadedPhoto = loaded.photo
+                //            print("loadedSize? \(loaded.phisical_size_x)")
+                //            print("LOADED: \(loaded)")
+                let newRef = ARReferenceImage(loadedPhoto.cgImage!, orientation: CGImagePropertyOrientation.up, physicalWidth: loaded.phisical_size_x!)
+                referenceImages.insert(newRef)
+            }
         }
-            
         configuration.detectionImages = referenceImages // Specify what we want to detect
         
         session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
@@ -100,6 +103,7 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
     }
     
     private func loadPaintings() -> [Painting]?{
+        print("urlpath  :      \(Painting.ArchiveURL.path)")
         return NSKeyedUnarchiver.unarchiveObject(withFile: Painting.ArchiveURL.path) as? [Painting]
         // attempt to unarchive the object stored at the path Painting.ArchiveURL.path and downcast that object to an array of Painting objects
     }

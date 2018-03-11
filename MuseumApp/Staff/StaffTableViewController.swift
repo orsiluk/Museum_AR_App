@@ -22,23 +22,23 @@ class StaffTableViewController: UITableViewController {
         let photo4 = UIImage(named: "Painting_starrynight")
         let photo5 = UIImage(named: "Painting_princess")
         
-        guard let painting1 = Painting(name: "Impression", photo: photo1!, content:nil, phisical_size_x:1) else {
+        guard let painting1 = Painting(name: "Impression", photo: photo1!, content:nil, phisical_size_x:CGFloat(12)) else {
             fatalError("Unable to instantiate impression")
         }
         
-        guard let painting2 = Painting(name: "Park", photo: photo2!, content:nil, phisical_size_x:1) else {
+        guard let painting2 = Painting(name: "Park", photo: photo2!, content:nil, phisical_size_x:CGFloat(12)) else {
             fatalError("Unable to instantiate park")
         }
         
-        guard let painting3 = Painting(name: "Poppies", photo: photo3!, content:nil, phisical_size_x:1) else {
+        guard let painting3 = Painting(name: "Poppies", photo: photo3!, content:nil, phisical_size_x:CGFloat(22.9)) else {
             fatalError("Unable to instantiate poppies")
         }
         
-        guard let painting4 = Painting(name: "Starry night", photo: photo4!, content:nil, phisical_size_x:1) else {
+        guard let painting4 = Painting(name: "Starry night", photo: photo4!, content:nil, phisical_size_x:CGFloat(15)) else {
             fatalError("Unable to instantiate starrynight")
         }
         
-        guard let painting5 = Painting(name: "Knight and the princess", photo: photo5!, content:nil, phisical_size_x:1) else {
+        guard let painting5 = Painting(name: "Knight and the princess", photo: photo5!, content:nil, phisical_size_x:CGFloat(50)) else {
             fatalError("Unable to instantiate princess")
         }
         
