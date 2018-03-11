@@ -16,7 +16,7 @@ class Painting: NSObject, NSCoding{
     var name: String
     var photo: UIImage
     var content: String? //Optional
-    var phisical_size_x: CGFloat?
+    var phisical_size_x: CGFloat
     
     // Types
     struct PropertyKey {
@@ -27,7 +27,7 @@ class Painting: NSObject, NSCoding{
     }
     
     // Initializing
-    init?(name: String, photo: UIImage, content:String?, phisical_size_x:CGFloat?){ // Because of ? it is a failable initializer
+    init?(name: String, photo: UIImage, content:String?, phisical_size_x:CGFloat){ // Because of ? it is a failable initializer
         // Initialization should fail if there's no name
         
         if name.isEmpty {
@@ -68,7 +68,7 @@ class Painting: NSObject, NSCoding{
         let content = aDecoder.decodeObject(forKey: PropertyKey.content) as? String
         let phisical_size_x = aDecoder.decodeObject(forKey: PropertyKey.phisical_size_x) as? CGFloat
         
-        self.init(name: name, photo: photo, content: content, phisical_size_x: phisical_size_x)
+        self.init(name: name, photo: photo, content: content, phisical_size_x: phisical_size_x!)
     }
     
     // We need a persistent path on the file system where data will be saved and loaded, so you know where to look for it.

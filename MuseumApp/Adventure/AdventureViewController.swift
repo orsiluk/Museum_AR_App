@@ -92,7 +92,7 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
                 let loadedPhoto = loaded.photo
                 //            print("loadedSize? \(loaded.phisical_size_x)")
                 //            print("LOADED: \(loaded)")
-                let newRef = ARReferenceImage(loadedPhoto.cgImage!, orientation: CGImagePropertyOrientation.up, physicalWidth: loaded.phisical_size_x!)
+                let newRef = ARReferenceImage(loadedPhoto.cgImage!, orientation: CGImagePropertyOrientation.up, physicalWidth: loaded.phisical_size_x)
                 referenceImages.insert(newRef)
             }
         }

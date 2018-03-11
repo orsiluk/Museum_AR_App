@@ -128,7 +128,7 @@
                                                 <rect key="frame" x="0.0" y="390" width="334" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="leading" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Content about Painting" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1Zt-fT-JDI">
                                                 <rect key="frame" x="0.0" y="428" width="334" height="30"/>

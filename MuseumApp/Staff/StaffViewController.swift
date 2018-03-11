@@ -79,16 +79,24 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
     
     // Set up buttons and record audio
     
-    // Adding play button and record buuton as subviews
+    // Adding play button and record button as subviews
     func setUpUI() {
         recordButton.translatesAutoresizingMaskIntoConstraints = false
         playButton.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(recordButton)
-        view.addSubview(playButton)
+        let myView = view.subviews[0].subviews[0]
+        let anchorView = view.subviews[0].subviews[0].subviews[3]
+//        print("VIEW : \(view)")
+//        print("VIEW.s : \(view.subviews[0].subviews[0])")
+//        let firstView = myView.arrangedSubviews[0]
+//        firstView.isHidden = true
+        myView.addSubview(recordButton)
+        myView.addSubview(playButton)
         
         // Adding constraints to Record button
-        recordButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 8).isActive = true
-        recordButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 350).isActive = true
+        recordButton.centerXAnchor.constraint(equalTo: anchorView.centerXAnchor, constant: 8).isActive = true
+        recordButton.centerYAnchor.constraint(equalTo: anchorView.centerYAnchor, constant: 50).isActive = true
+//        recordButton.trailingAnchor.constraint(equalTo: addContent.leadingAnchor).isActive = true
+        
         let recordButtonHeightConstraint = recordButton.heightAnchor.constraint(equalToConstant: 60)
         recordButtonHeightConstraint.isActive = true
         recordButton.widthAnchor.constraint(equalTo: recordButton.heightAnchor, multiplier: 1.0).isActive = true
@@ -146,7 +154,7 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
             recordButton.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
             playButton.isEnabled = false
         }
-        catch let error{
+        catch _{
             os_log("Failed to record!")
         }
     }
