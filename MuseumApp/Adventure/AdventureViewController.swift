@@ -63,7 +63,14 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
             if !hits.isEmpty{
                 let tappedNode = hits.first?.node
 //                print("---- Tapped Node: \(String(describing: tappedNode?.parent?.name))")
-                self.playSound(name: String(describing: tappedNode!.parent!.name!))
+                
+                if tappedNode!.parent?.name != nil {
+//                    print("PARENT: \(String(describing: tappedNode!.parent?.name))")
+                    self.playSound(name: String(describing: tappedNode!.parent!.name!))
+                    
+                }else {
+                    self.playSound(name: String(describing: tappedNode!.name))
+                }
             }
         }
     }
@@ -92,7 +99,7 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
     
     func resetTracking() {
         self.foundPaintings.removeAll() // Removes all elements from the dictionary if scene is reset.
-        guard var referenceImages = ARReferenceImage.referenceImages(inGroupNamed: "Paintings", bundle: nil) else {
+        guard let referenceImages = ARReferenceImage.referenceImages(inGroupNamed: "Paintings", bundle: nil) else {
             fatalError("Missing expected asset catalog resources.")
         }
         
@@ -105,7 +112,7 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
         
         let savedPaintings = loadPaintings()
         //        var loadedRefImages = [ARReferenceImage]()
-        print("----- refrenceImages \(referenceImages)")
+//        print("----- refrenceImages \(referenceImages)")
         if !(savedPaintings == nil){
             var newRefIm = Set<ARReferenceImage>()
             // https://developer.apple.com/documentation/arkit/arreferenceimage/2942252-init
@@ -129,7 +136,7 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
     
     
     private func loadPaintings() -> [Painting]?{
-        print("urlpath  :      \(Painting.ArchiveURL.path)")
+//        print("urlpath  :      \(Painting.ArchiveURL.path)")
         return NSKeyedUnarchiver.unarchiveObject(withFile: Painting.ArchiveURL.path) as? [Painting]
         // attempt to unarchive the object stored at the path Painting.ArchiveURL.path and downcast that object to an array of Painting objects
     }
@@ -202,7 +209,7 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
                 newNode = self.addObjectToScene(name: "paperPlane", x: obj_pos_x, y: obj_pos_y, z: obj_pos_z, scale: 1)
             }
             else{
-                newNode = self.addObjectToScene(name: "default", x: obj_pos_x, y: obj_pos_y, z: obj_pos_z, scale: 10)
+                newNode = self.addObjectToScene(name: "default", x: obj_pos_x, y: obj_pos_y, z: obj_pos_z, scale: 1)
             }
             newNode.name = referenceImage.name
             node.addChildNode(newNode)

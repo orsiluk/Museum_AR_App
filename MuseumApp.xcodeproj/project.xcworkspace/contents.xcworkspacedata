@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/lukacs_orsi/Desktop/Year_4/Thesis/MuseumApp/MuseumApp/ARObjects/mylady.dae">
+      location = "group:/Users/lukacs_orsi/Desktop/Year_4/Thesis/MuseumApp/MuseumApp/Assets.xcassets">
    </FileRef>
    <FileRef
       location = "self:">

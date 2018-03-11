@@ -183,7 +183,7 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
     
     func playSound(){
         let url = getAudioFileUrl()
-        print("URL in STAFF: \(url)")
+//        print("URL in STAFF: \(url)")
         do {
             // AVAudioPlayer setting up with the saved file URL
             let sound = try AVAudioPlayer(contentsOf: url)

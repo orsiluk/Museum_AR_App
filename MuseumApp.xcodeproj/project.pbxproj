@@ -23,7 +23,6 @@
 		61B8A401204C54BB00D2AA38 /* AdventureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B8A3FE204C54BA00D2AA38 /* AdventureViewController.swift */; };
 		61B8A402204C54BB00D2AA38 /* ViewController+ARSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B8A3FF204C54BA00D2AA38 /* ViewController+ARSessionDelegate.swift */; };
 		61B8A405204C551000D2AA38 /* StatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B8A404204C551000D2AA38 /* StatusViewController.swift */; };
-		61E3245E204F345100F895B8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61E3245D204F345100F895B8 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +39,7 @@
 		610C5187204445B8000358F6 /* Painting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Painting.swift; sourceTree = "<group>"; };
 		610EA27720431B7F00B72E89 /* RatingControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingControl.swift; sourceTree = "<group>"; };
 		611AD1772052FEBD0017E366 /* resourceImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = resourceImages.swift; sourceTree = "<group>"; };
+		611AD1792055F6010017E366 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = /Users/lukacs_orsi/Desktop/Year_4/Thesis/MuseumApp/MuseumApp/Assets.xcassets; sourceTree = "<absolute>"; };
 		616C72CE2037089800BC8CD9 /* MuseumApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MuseumApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		616C72D12037089800BC8CD9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		616C72D32037089800BC8CD9 /* StaffViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaffViewController.swift; sourceTree = "<group>"; };
@@ -57,7 +57,6 @@
 		61B8A3FE204C54BA00D2AA38 /* AdventureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdventureViewController.swift; sourceTree = "<group>"; };
 		61B8A3FF204C54BA00D2AA38 /* ViewController+ARSessionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ViewController+ARSessionDelegate.swift"; sourceTree = "<group>"; };
 		61B8A404204C551000D2AA38 /* StatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusViewController.swift; sourceTree = "<group>"; };
-		61E3245D204F345100F895B8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = /Users/lukacs_orsi/Desktop/Year_4/Thesis/MuseumApp/MuseumApp/Assets.xcassets; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,12 +99,12 @@
 			isa = PBXGroup;
 			children = (
 				616C72D12037089800BC8CD9 /* AppDelegate.swift */,
+				611AD1792055F6010017E366 /* Assets.xcassets */,
 				61AA4688204C684600912B97 /* Staff */,
 				61AA4687204C682500912B97 /* Adventure */,
 				61AA4680204C66E700912B97 /* ARObjects */,
 				6183E58A20457F1900B2C3A3 /* Main.storyboard */,
 				616C72DD2037089A00BC8CD9 /* Info.plist */,
-				61E3245D204F345100F895B8 /* Assets.xcassets */,
 				616C72DA2037089A00BC8CD9 /* LaunchScreen.storyboard */,
 			);
 			path = MuseumApp;
@@ -238,7 +237,6 @@
 				616C72DC2037089A00BC8CD9 /* LaunchScreen.storyboard in Resources */,
 				61AA4686204C674E00912B97 /* myFly.dae in Resources */,
 				61AA4685204C674E00912B97 /* car.dae in Resources */,
-				61E3245E204F345100F895B8 /* Assets.xcassets in Resources */,
 				6183E58B20457F1900B2C3A3 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
