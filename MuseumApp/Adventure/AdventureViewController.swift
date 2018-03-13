@@ -33,10 +33,10 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
     
     // Dictionary of <ImageAnchor, Planeoverlay> that has all detected paintings in it
     var foundPaintings = [ARImageAnchor: SCNNode]()
-    
+    var savedPaintings = [Painting]()
     var player : AVAudioPlayer?
     // MARK: - View Controller Life Cycle
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -65,11 +65,12 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
 //                print("---- Tapped Node: \(String(describing: tappedNode?.parent?.name))")
                 
                 if tappedNode!.parent?.name != nil {
-//                    print("PARENT: \(String(describing: tappedNode!.parent?.name))")
+                    print("WILL TRY to play this : \(String(describing: tappedNode!.parent?.name))")
                     self.playSound(name: String(describing: tappedNode!.parent!.name!))
                     
                 }else {
-                    self.playSound(name: String(describing: tappedNode!.name))
+                    print("WILL TRY to play this istead : \(String(describing: tappedNode!.name))")
+                    self.playSound(name: String(describing: tappedNode!.name!))
                 }
             }
         }
@@ -103,20 +104,22 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
             fatalError("Missing expected asset catalog resources.")
         }
         
-        //        print("----------------- \(referenceImages)")
+        //print("----------------- \(referenceImages)")
         let configuration = ARWorldTrackingConfiguration() // Create configuration that detects six degrees of freedom (roll,pitch,yaw,x,y,z)
+        configuration.detectionImages?.removeAll()
+        savedPaintings.removeAll()
+        savedPaintings = loadPaintings()!
         
-        //        print("Reference images \(referenceImages)")
-        //        print("Configuration images \(configuration)")
-        
-        
-        let savedPaintings = loadPaintings()
-        //        var loadedRefImages = [ARReferenceImage]()
+        if sceneView.scene.rootNode.childNodes != [] {
+            sceneView.scene.rootNode.enumerateChildNodes { (node, stop) -> Void in
+                node.removeFromParentNode()
+            }
+        }
 //        print("----- refrenceImages \(referenceImages)")
-        if !(savedPaintings == nil){
+        if !(savedPaintings == []){
             var newRefIm = Set<ARReferenceImage>()
             // https://developer.apple.com/documentation/arkit/arreferenceimage/2942252-init
-            for loaded in (savedPaintings)! {
+            for loaded in (savedPaintings) {
                 let loadedPhoto = loaded.photo
                 print("***** loadedPhoto: \(loaded.name)")
 
@@ -137,10 +140,12 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
     
     private func loadPaintings() -> [Painting]?{
 //        print("urlpath  :      \(Painting.ArchiveURL.path)")
-        return NSKeyedUnarchiver.unarchiveObject(withFile: Painting.ArchiveURL.path) as? [Painting]
+        
+        // TOFIX: If there is nothing saved on the device, it will crash.
+        
+        return (NSKeyedUnarchiver.unarchiveObject(withFile: Painting.ArchiveURL.path) as? [Painting])!
         // attempt to unarchive the object stored at the path Painting.ArchiveURL.path and downcast that object to an array of Painting objects
     }
-    
  
     func getAudioFileUrl(name: String) -> URL{
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
@@ -190,9 +195,9 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
             node.addChildNode(planeNode)
             //Depending on which node I attache this to the reference point changes If I add it to planeNode whatever is applied to that node (animation etc. will happen to this obejct too)
             // node position is in the center of the detected image
-            let obj_pos_x = planeNode.position.x - Float(referenceImage.physicalSize.width)/2 - 0.1
-            let obj_pos_y = planeNode.position.y
-            let obj_pos_z = planeNode.position.z + Float(referenceImage.physicalSize.height)/2
+            let obj_pos_x = planeNode.position.x - Float(referenceImage.physicalSize.width)/2 - 0.1 // Put it on the left side 0.1 distance away from the painting edge
+            let obj_pos_y = planeNode.position.y + 0.02 // Put it a bit more forward
+            let obj_pos_z = planeNode.position.z + Float(referenceImage.physicalSize.height)/2 // put it on the same hight as the bottom of the painting
             //            let scale: Float = 0.25
             var newNode = SCNNode()
             

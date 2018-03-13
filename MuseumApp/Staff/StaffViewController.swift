@@ -63,6 +63,13 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
         
         view.backgroundColor = UIColor.black
         
+//        recordButton.translatesAutoresizingMaskIntoConstraints = false
+//        playButton.translatesAutoresizingMaskIntoConstraints = false
+//        let anchorView = view.subviews[0].subviews[0].subviews[3]
+//
+//        view.addSubview(recordButton)
+//        view.addSubview(playButton)
+        
         // Asking user permission for accessing Microphone
         AVAudioSession.sharedInstance().requestRecordPermission () {
             [unowned self] allowed in
@@ -168,7 +175,8 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let docsDirect = paths[0]
         // Here I want to pass in the painting's name, that way we can load it - Find a way to figure which painting it is - could save in a field the filename instead of anything else
-        let audioUrl = docsDirect.appendingPathComponent("\(painting!.name).m4a")
+        let name = nameTextField.text ?? ""
+        let audioUrl = docsDirect.appendingPathComponent("\(name).m4a")
         return audioUrl
     }
     

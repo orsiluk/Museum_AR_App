@@ -10,6 +10,7 @@
 		610C5188204445B8000358F6 /* Painting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610C5187204445B8000358F6 /* Painting.swift */; };
 		610EA27820431B7F00B72E89 /* RatingControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610EA27720431B7F00B72E89 /* RatingControl.swift */; };
 		611AD1782052FEBD0017E366 /* resourceImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611AD1772052FEBD0017E366 /* resourceImages.swift */; };
+		616BFF432056D47800C34790 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 611AD1792055F6010017E366 /* Assets.xcassets */; };
 		616C72D22037089800BC8CD9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616C72D12037089800BC8CD9 /* AppDelegate.swift */; };
 		616C72D42037089800BC8CD9 /* StaffViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616C72D32037089800BC8CD9 /* StaffViewController.swift */; };
 		616C72DC2037089A00BC8CD9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 616C72DA2037089A00BC8CD9 /* LaunchScreen.storyboard */; };
@@ -99,11 +100,11 @@
 			isa = PBXGroup;
 			children = (
 				616C72D12037089800BC8CD9 /* AppDelegate.swift */,
-				611AD1792055F6010017E366 /* Assets.xcassets */,
 				61AA4688204C684600912B97 /* Staff */,
 				61AA4687204C682500912B97 /* Adventure */,
 				61AA4680204C66E700912B97 /* ARObjects */,
 				6183E58A20457F1900B2C3A3 /* Main.storyboard */,
+				611AD1792055F6010017E366 /* Assets.xcassets */,
 				616C72DD2037089A00BC8CD9 /* Info.plist */,
 				616C72DA2037089A00BC8CD9 /* LaunchScreen.storyboard */,
 			);
@@ -237,6 +238,7 @@
 				616C72DC2037089A00BC8CD9 /* LaunchScreen.storyboard in Resources */,
 				61AA4686204C674E00912B97 /* myFly.dae in Resources */,
 				61AA4685204C674E00912B97 /* car.dae in Resources */,
+				616BFF432056D47800C34790 /* Assets.xcassets in Resources */,
 				6183E58B20457F1900B2C3A3 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
