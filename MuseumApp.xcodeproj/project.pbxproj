@@ -24,6 +24,7 @@
 		61B8A401204C54BB00D2AA38 /* AdventureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B8A3FE204C54BA00D2AA38 /* AdventureViewController.swift */; };
 		61B8A402204C54BB00D2AA38 /* ViewController+ARSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B8A3FF204C54BA00D2AA38 /* ViewController+ARSessionDelegate.swift */; };
 		61B8A405204C551000D2AA38 /* StatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B8A404204C551000D2AA38 /* StatusViewController.swift */; };
+		61FB1C85205955D80008D585 /* tree.dae in Resources */ = {isa = PBXBuildFile; fileRef = 61FB1C84205955D80008D585 /* tree.dae */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		61B8A3FE204C54BA00D2AA38 /* AdventureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdventureViewController.swift; sourceTree = "<group>"; };
 		61B8A3FF204C54BA00D2AA38 /* ViewController+ARSessionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ViewController+ARSessionDelegate.swift"; sourceTree = "<group>"; };
 		61B8A404204C551000D2AA38 /* StatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusViewController.swift; sourceTree = "<group>"; };
+		61FB1C84205955D80008D585 /* tree.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; name = tree.dae; path = "MuseumApp/3D Objects/tree.dae"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +127,7 @@
 			children = (
 				61AA4682204C674E00912B97 /* car.dae */,
 				61AA4683204C674E00912B97 /* myFly.dae */,
+				61FB1C84205955D80008D585 /* tree.dae */,
 				61AA4681204C674E00912B97 /* paperPlane.scn */,
 			);
 			path = ARObjects;
@@ -236,6 +239,7 @@
 			files = (
 				61AA4684204C674E00912B97 /* paperPlane.scn in Resources */,
 				616C72DC2037089A00BC8CD9 /* LaunchScreen.storyboard in Resources */,
+				61FB1C85205955D80008D585 /* tree.dae in Resources */,
 				61AA4686204C674E00912B97 /* myFly.dae in Resources */,
 				61AA4685204C674E00912B97 /* car.dae in Resources */,
 				616BFF432056D47800C34790 /* Assets.xcassets in Resources */,

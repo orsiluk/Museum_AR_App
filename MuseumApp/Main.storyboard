@@ -103,7 +103,7 @@
                                 <rect key="frame" x="0.0" y="28" width="414" height="700"/>
                                 <subviews>
                                     <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="nyr-WE-eAb">
-                                        <rect key="frame" x="40" y="8" width="334" height="458"/>
+                                        <rect key="frame" x="40" y="8" width="334" height="496"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter painting name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MBZ-WZ-i8u">
                                                 <rect key="frame" x="0.0" y="0.0" width="334" height="40"/>
@@ -136,6 +136,9 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                             </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Onm-a9-WXT">
+                                                <rect key="frame" x="0.0" y="466" width="334" height="30"/>
+                                            </button>
                                         </subviews>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="MBZ-WZ-i8u" secondAttribute="trailing" id="Ov8-Oc-bn2"/>

@@ -60,6 +60,9 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
         if rec.state == .ended {
             let location: CGPoint = rec.location(in: sceneView)
             let hits = self.sceneView.hitTest(location, options: nil)
+            
+            // it crashes when the plane over the object is tapped.. why?
+            
             if !hits.isEmpty{
                 let tappedNode = hits.first?.node
 //                print("---- Tapped Node: \(String(describing: tappedNode?.parent?.name))")
@@ -68,9 +71,11 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
                     print("WILL TRY to play this : \(String(describing: tappedNode!.parent?.name))")
                     self.playSound(name: String(describing: tappedNode!.parent!.name!))
                     
-                }else {
+                }else if (tappedNode!.name != nil) {
                     print("WILL TRY to play this istead : \(String(describing: tappedNode!.name))")
                     self.playSound(name: String(describing: tappedNode!.name!))
+                }else {
+                    print("No sound attached");
                 }
             }
         }
@@ -204,7 +209,7 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
             if (referenceImage.name == "poppies"){
                 print(" :) nodeposition: \(node.position)")
                 // add object relative to the center of the image
-                newNode = self.addObjectToScene(name: "car", x: obj_pos_x, y: obj_pos_y, z: obj_pos_z, scale: 0.25)
+                newNode = self.addObjectToScene(name: "tree", x: obj_pos_x+0.05, y: obj_pos_y, z: obj_pos_z, scale: 0.005)
             }else if (referenceImage.name == "park"){
                 // add object relative to the center of the image
                 newNode = self.addObjectToScene(name: "myFly", x: obj_pos_x, y: obj_pos_y, z: obj_pos_z, scale: 0.02)
