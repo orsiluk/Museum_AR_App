@@ -138,6 +138,10 @@
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Onm-a9-WXT">
                                                 <rect key="frame" x="0.0" y="466" width="334" height="30"/>
+                                                <state key="normal" title="Important objects on painting"/>
+                                                <connections>
+                                                    <action selector="addObjectsToFind:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tcJ-RP-znT"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <constraints>
@@ -183,7 +187,7 @@
                     <connections>
                         <outlet property="addContent" destination="1Zt-fT-JDI" id="nKu-G0-dOB"/>
                         <outlet property="nameTextField" destination="MBZ-WZ-i8u" id="P43-nH-Ium"/>
-                        <outlet property="paintingSize_x" destination="fXM-xN-Tk2" id="6qq-iE-Vgv"/>
+                        <outlet property="paintingSize_x" destination="fXM-xN-Tk2" id="w7N-ze-guI"/>
                         <outlet property="photoImageView" destination="Ayk-o8-ehY" id="9F4-JD-tMq"/>
                         <outlet property="saveButton" destination="mlb-io-Bc4" id="J7y-4N-KuD"/>
                     </connections>
@@ -198,6 +202,42 @@
                 </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1949.2753623188407" y="132.88043478260872"/>
+        </scene>
+        <!--Select areas of interest-->
+        <scene sceneID="PIa-Uv-ATJ">
+            <objects>
+                <viewController storyboardIdentifier="SelectObjectsView" id="4Xe-DS-bM3" customClass="SelectObjectsView" customModule="MuseumApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Dy3-52-DA1"/>
+                        <viewControllerLayoutGuide type="bottom" id="huD-bm-hEG"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="G7H-mE-ZR7">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="defaultPhoto" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lXl-bU-x0E">
+                                <rect key="frame" x="5" y="216.66666666666663" width="404" height="303"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="lXl-bU-x0E" secondAttribute="height" multiplier="4:3" id="zZN-2r-PDg"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="lXl-bU-x0E" secondAttribute="trailing" constant="5" id="AST-th-M46"/>
+                            <constraint firstItem="lXl-bU-x0E" firstAttribute="leading" secondItem="G7H-mE-ZR7" secondAttribute="leading" constant="5" id="BdC-18-OSo"/>
+                            <constraint firstItem="lXl-bU-x0E" firstAttribute="centerX" secondItem="G7H-mE-ZR7" secondAttribute="centerX" id="byx-4D-lCw"/>
+                            <constraint firstItem="lXl-bU-x0E" firstAttribute="centerY" secondItem="G7H-mE-ZR7" secondAttribute="centerY" id="wpl-Ej-s6n"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Select areas of interest" id="Bn4-9Z-F3r"/>
+                    <connections>
+                        <outlet property="displayPainting" destination="lXl-bU-x0E" id="6fT-gr-S1a"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Nel-UR-HZo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2960.8695652173915" y="132.88043478260872"/>
         </scene>
         <!--Home-->
         <scene sceneID="R7d-62-tWs">

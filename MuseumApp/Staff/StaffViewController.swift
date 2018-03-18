@@ -20,6 +20,8 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
     @IBOutlet weak var paintingSize_x: UITextField!
+    
+    
     /*
      This value is either passed by `StaffTableViewController` in `prepare(for:sender:)`
      or constructed as part of adding a new painting.
@@ -279,7 +281,7 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
         
         // Configure the destination view controller only when the save button is pressed.
         guard let button = sender as? UIBarButtonItem, button === saveButton else {
-            os_log("The save button was not pressed, cancelling", log: OSLog.default, type: .debug)
+            os_log("The save button was not pressed.", log: OSLog.default, type: .debug)
             return
         }
 
@@ -287,27 +289,6 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
         let photo = photoImageView.image
         let content = addContent.text ?? ""
         let gotSize = paintingSize_x.text ?? ""
-//        if gotSize.isEmpty {
-//            print("IT WAS EMPTY!!!")
-//            let alert = UIAlertController(title: "No dimensions added!", message: "You need to input the physical width of the painting to be able detect it later. ", preferredStyle: .alert)
-//            //            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: nil))
-//            //            alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
-//
-//            //            self.present(alert, animated: true)
-//
-//            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-//            alert.addTextField(configurationHandler: { textField in textField.placeholder = "Input the size here..." })
-//
-////            alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { action in
-////
-////                gotSize = (alert.textFields?.first?.text)!
-////                print("Inputted size is: \(gotSize)")
-////
-////            }))
-////            print("NOW IT SHOULDNT BE EMPTY \(gotSize)")
-//
-//            self.present(alert, animated: true)
-//        }
         let pSize = Float(gotSize)
         let phisical_size_x = CGFloat(pSize!) // Add a field to retrive it!
         //        let rating = ratingControl.rating
@@ -339,6 +320,13 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
         print("picked")
         present(imagePickerController, animated: true, completion: nil)
         print("should open window")
+    }
+    
+    @IBAction func addObjectsToFind(_ sender: Any) {
+        
+        let toFindVC = storyboard?.instantiateViewController(withIdentifier: "SelectObjectsView") as! SelectObjectsView
+        toFindVC.theImagePassed = photoImageView.image!
+        navigationController?.pushViewController(toFindVC, animated: true)
     }
     
     // Private Methods:

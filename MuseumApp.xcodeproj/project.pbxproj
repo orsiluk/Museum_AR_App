@@ -25,6 +25,7 @@
 		61B8A402204C54BB00D2AA38 /* ViewController+ARSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B8A3FF204C54BA00D2AA38 /* ViewController+ARSessionDelegate.swift */; };
 		61B8A405204C551000D2AA38 /* StatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B8A404204C551000D2AA38 /* StatusViewController.swift */; };
 		61FB1C85205955D80008D585 /* tree.dae in Resources */ = {isa = PBXBuildFile; fileRef = 61FB1C84205955D80008D585 /* tree.dae */; };
+		61FB1C87205EA0260008D585 /* SelectObjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FB1C86205EA0260008D585 /* SelectObjectsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,7 @@
 		61B8A3FF204C54BA00D2AA38 /* ViewController+ARSessionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ViewController+ARSessionDelegate.swift"; sourceTree = "<group>"; };
 		61B8A404204C551000D2AA38 /* StatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusViewController.swift; sourceTree = "<group>"; };
 		61FB1C84205955D80008D585 /* tree.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; name = tree.dae; path = "MuseumApp/3D Objects/tree.dae"; sourceTree = SOURCE_ROOT; };
+		61FB1C86205EA0260008D585 /* SelectObjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectObjectsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				616C72D32037089800BC8CD9 /* StaffViewController.swift */,
+				61FB1C86205EA0260008D585 /* SelectObjectsView.swift */,
 				610EA27720431B7F00B72E89 /* RatingControl.swift */,
 				610C5187204445B8000358F6 /* Painting.swift */,
 				6183E58420447CCF00B2C3A3 /* StaffTableViewController.swift */,
@@ -268,6 +271,7 @@
 				61B8A401204C54BB00D2AA38 /* AdventureViewController.swift in Sources */,
 				61B8A402204C54BB00D2AA38 /* ViewController+ARSessionDelegate.swift in Sources */,
 				6183E58520447CCF00B2C3A3 /* StaffTableViewController.swift in Sources */,
+				61FB1C87205EA0260008D585 /* SelectObjectsView.swift in Sources */,
 				61B8A405204C551000D2AA38 /* StatusViewController.swift in Sources */,
 				6183E583204471BB00B2C3A3 /* StaffTableViewCell.swift in Sources */,
 				611AD1782052FEBD0017E366 /* resourceImages.swift in Sources */,
