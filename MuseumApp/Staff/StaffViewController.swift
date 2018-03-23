@@ -11,8 +11,8 @@ import AVFoundation
 
 // When you press save, you want to go back, that's called an unwind segue, it means it takes you a step back
 class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
-    // Properties
     
+    // Properties
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var photoImageView: UIImageView!
     //    @IBOutlet weak var ratingControl: RatingControl!
@@ -20,7 +20,9 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
     @IBOutlet weak var paintingSize_x: UITextField!
+//    @IBOutlet weak var gotObjArray: UIButton!
     
+    public var gotObjectArray : [objInfo] = []
     
     /*
      This value is either passed by `StaffTableViewController` in `prepare(for:sender:)`
@@ -64,7 +66,6 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
         updateSaveButtonState()
         
         view.backgroundColor = UIColor.black
-        
 //        recordButton.translatesAutoresizingMaskIntoConstraints = false
 //        playButton.translatesAutoresizingMaskIntoConstraints = false
 //        let anchorView = view.subviews[0].subviews[0].subviews[3]
@@ -84,6 +85,8 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
             }
         }
         
+        print("OBJECT COORDONATE ARRAY \(String(describing: painting?.objectArray))")
+        
     }
     
     // Set up buttons and record audio
@@ -92,13 +95,13 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
     func setUpUI() {
         recordButton.translatesAutoresizingMaskIntoConstraints = false
         playButton.translatesAutoresizingMaskIntoConstraints = false
-        let anchorView = view.subviews[0].subviews[0].subviews[3]
+        let anchorView = view.subviews[0].subviews[0].subviews[4]
 
         view.addSubview(recordButton)
         view.addSubview(playButton)
         
         // Adding constraints to Record button
-        recordButton.centerXAnchor.constraint(equalTo: anchorView.centerXAnchor, constant: 8).isActive = true
+        recordButton.centerXAnchor.constraint(equalTo: anchorView.centerXAnchor, constant: 35).isActive = true
         recordButton.centerYAnchor.constraint(equalTo: anchorView.centerYAnchor, constant: 50).isActive = true
 //        recordButton.trailingAnchor.constraint(equalTo: addContent.leadingAnchor).isActive = true
         
@@ -277,8 +280,43 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
     
     // This method lets you configure a view controller before it's presented.
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        super.prepare(for: segue, sender: sender) // add a call to the superclass’s implementation
         
+        
+//        super.prepare(for: segue, sender: sender)
+//        switch(segue.identifier ?? "") {
+//        case "saveButton":
+//            let name = nameTextField.text ?? ""
+//            let photo = photoImageView.image
+//            let content = addContent.text ?? ""
+//            let gotSize = paintingSize_x.text ?? ""
+//            let pSize = Float(gotSize)
+//            let phisical_size_x = CGFloat(pSize!) // Add a field to retrive it!
+//            //        let rating = ratingControl.rating
+//            let objectArray = painting?.objectArray
+//            print("<<<<< SHOULD HAVE OBJECTS \(objectArray)")
+//            
+//            // Set the painting to be passed to StaffTableViewController after the unwind segue.
+//            painting = Painting(name: name, photo: photo!, content:content, phisical_size_x:phisical_size_x, objectArray:objectArray!)
+//        case "Add objects to be detected":
+//            guard let addingObjects = segue.destination as? SelectObjectsView else {
+//                fatalError("Unexpected destination: \(segue.destination)")
+//            }
+//            addingObjects.theImagePassed = painting
+//        default:
+//            os_log("Unexpected Segue Identifier.", log: OSLog.default, type: .debug)
+//            return
+//        }
+        
+        
+        
+        
+        
+//        if let destination = segue.destination as? SelectObjectsView {
+//            print("In prepare the right thing happened")
+//            destination.delegate = self
+//        }
+        super.prepare(for: segue, sender: sender) // add a call to the superclass’s implementation
+
         // Configure the destination view controller only when the save button is pressed.
         guard let button = sender as? UIBarButtonItem, button === saveButton else {
             os_log("The save button was not pressed.", log: OSLog.default, type: .debug)
@@ -292,14 +330,14 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
         let pSize = Float(gotSize)
         let phisical_size_x = CGFloat(pSize!) // Add a field to retrive it!
         //        let rating = ratingControl.rating
-        
+        let objectArray = painting?.objectArray[0]
+        print("<<<<< SHOULD HAVE OBJECTS \(String(describing: objectArray))")
+
         // Set the painting to be passed to StaffTableViewController after the unwind segue.
-        painting = Painting(name: name, photo: photo!, content:content, phisical_size_x:phisical_size_x)
-        
+        painting = Painting(name: name, photo: photo!, content:content, phisical_size_x:phisical_size_x, objectArray:[objectArray!])
+//
     }
-    
-    
-    
+
     //This is where your implementation of UITextFieldDelegate methods comes in. You need to specify that the text field should resign its first-responder status when the user taps a button to end editing in the text field. You do this in the textFieldShouldReturn(_:) method, which gets called when the user taps Return (or in this case, Done) on the keyboard.
     
     // Actions:
@@ -323,9 +361,8 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
     }
     
     @IBAction func addObjectsToFind(_ sender: Any) {
-        
         let toFindVC = storyboard?.instantiateViewController(withIdentifier: "SelectObjectsView") as! SelectObjectsView
-        toFindVC.theImagePassed = photoImageView.image!
+        toFindVC.theImagePassed = painting
         navigationController?.pushViewController(toFindVC, animated: true)
     }
     

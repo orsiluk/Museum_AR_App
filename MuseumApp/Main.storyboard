@@ -90,7 +90,7 @@
         <!--New Painting-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="StaffViewController" customModule="MuseumApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StaffViewController" id="BYZ-38-t0r" customClass="StaffViewController" customModule="MuseumApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="MMR-9G-qqZ"/>
                         <viewControllerLayoutGuide type="bottom" id="oG8-Vl-FNC"/>
@@ -100,7 +100,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8lz-SZ-EeA">
-                                <rect key="frame" x="0.0" y="28" width="414" height="700"/>
+                                <rect key="frame" x="0.0" y="28" width="414" height="656"/>
                                 <subviews>
                                     <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="nyr-WE-eAb">
                                         <rect key="frame" x="40" y="8" width="334" height="496"/>
@@ -138,7 +138,16 @@
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Onm-a9-WXT">
                                                 <rect key="frame" x="0.0" y="466" width="334" height="30"/>
-                                                <state key="normal" title="Important objects on painting"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" title="Add objects to be detected">
+                                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.makesToBounds" value="YES"/>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="6"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="addObjectsToFind:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tcJ-RP-znT"/>
                                                 </connections>
@@ -230,14 +239,23 @@
                             <constraint firstItem="lXl-bU-x0E" firstAttribute="centerY" secondItem="G7H-mE-ZR7" secondAttribute="centerY" id="wpl-Ej-s6n"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Select areas of interest" id="Bn4-9Z-F3r"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Select areas of interest" id="Bn4-9Z-F3r">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="w4B-Ha-aSB">
+                            <connections>
+                                <action selector="doneSelecting:" destination="4Xe-DS-bM3" id="HmM-uZ-Yey"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="displayPainting" destination="lXl-bU-x0E" id="6fT-gr-S1a"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="doneWithObjects" id="V2J-ji-W1Q"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nel-UR-HZo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2960.8695652173915" y="132.88043478260872"/>
+            <point key="canvasLocation" x="3720" y="130"/>
         </scene>
         <!--Home-->
         <scene sceneID="R7d-62-tWs">
@@ -320,7 +338,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D5W-Ue-qK3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1051" y="518"/>
+            <point key="canvasLocation" x="1097" y="627"/>
         </scene>
         <!--Status View Controller-->
         <scene sceneID="GZR-EO-7Wj">
@@ -520,7 +538,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Lsa-xL-t9j"/>
-        <segue reference="9lg-oW-Hgr"/>
+        <segue reference="V2J-ji-W1Q"/>
         <segue reference="tIO-xV-IQp"/>
     </inferredMetricsTieBreakers>
 </document>

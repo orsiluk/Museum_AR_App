@@ -35,6 +35,9 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
     var foundPaintings = [ARImageAnchor: SCNNode]()
     var savedPaintings = [Painting]()
     var player : AVAudioPlayer?
+    
+    var objectsOnPainting = [String: [objInfo]]()
+    
     // MARK: - View Controller Life Cycle
 
     override func viewDidLoad() {
@@ -129,6 +132,8 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
                 print("***** loadedPhoto: \(loaded.name)")
 
                 let newRef = ARReferenceImage(loadedPhoto.cgImage!, orientation: CGImagePropertyOrientation.up, physicalWidth: loaded.phisical_size_x/100)
+                objectsOnPainting[loaded.name] = loaded.objectArray
+                print("------ Object map element 1: \(String(describing: objectsOnPainting[loaded.name])) ----- Element 2 \(String(describing: loaded.objectArray))")
                 // We have to conver physical_size_x into meters!
                 newRef.name = loaded.name
                 newRefIm.insert(newRef)
@@ -192,10 +197,10 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
         // anchor contains inormation such as where the image was detected and the reference image we compared it to
 
         let referenceImage = imageAnchor.referenceImage
-        print("Image with name = \(String(describing: referenceImage.name)) was found")
+        print("---- Image with name = \(String(describing: referenceImage.name)) was found")
         updateQueue.async {
-            let planeNode  = self.addPlaneOverPainting(detectedPainting: referenceImage)
             
+            let planeNode  = self.addPlaneOverPainting(detectedPainting: referenceImage, name: referenceImage.name!)
             // Add the plane visualization to the scene.
             node.addChildNode(planeNode)
             //Depending on which node I attache this to the reference point changes If I add it to planeNode whatever is applied to that node (animation etc. will happen to this obejct too)
@@ -207,7 +212,7 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
             var newNode = SCNNode()
             
             if (referenceImage.name == "poppies"){
-                print(" :) nodeposition: \(node.position)")
+                print(" :) nodeposition where pimage was recognized: \(node.position)")
                 // add object relative to the center of the image
                 newNode = self.addObjectToScene(name: "tree", x: obj_pos_x+0.05, y: obj_pos_y, z: obj_pos_z, scale: 0.005)
             }else if (referenceImage.name == "park"){
@@ -249,28 +254,41 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
     }
     
     // Display a transparant plane over the detected painting. The physical size we add as a property to the asset catalog images is used here and it is important because the distance to the view point is calculated based on this.
-    func addPlaneOverPainting(detectedPainting:ARReferenceImage) -> SCNNode{
+    func addPlaneOverPainting(detectedPainting:ARReferenceImage, name: String) -> SCNNode{
         
         // To add a picture over instead we can do this:
         /* plane.materials = [SCNMaterial()]
          plane.materials[0].diffuse.contents = UIImage(named: imageName) */
         
         
-        let plane = SCNPlane(width: detectedPainting.physicalSize.width,
-                             height: detectedPainting.physicalSize.height)
-        let planeNode = SCNNode(geometry: plane)
-        print("Plane when I add it : \(plane)")
-        planeNode.opacity = 0.15
+//        let plane = SCNPlane(width: detectedPainting.physicalSize.width,
+//                             height: detectedPainting.physicalSize.height)
+        let planeNode = SCNNode()
+//        planeNode.opacity = 0.05
+        
+        let objects = objectsOnPainting[name]!
+        print(objects)
+        for obj in objects {
+            print("Addig object to \(obj.posX,obj.posY)")
+            let miniPlane = SCNPlane(width: CGFloat(obj.width),
+                                     height: CGFloat(obj.height))
+            let objPlane = SCNNode(geometry: miniPlane)
+            objPlane.position = SCNVector3(obj.posX,0,obj.posY)
+            objPlane.opacity = 0.30
+            objPlane.eulerAngles.x = -.pi / 2
+            planeNode.addChildNode(objPlane)
+        }
+        
         
         /*
          `SCNPlane` is vertically oriented in its local coordinate space, but
          `ARImageAnchor` assumes the image is horizontal in its local space, so
          rotate the plane to match.
          */
-        planeNode.eulerAngles.x = -.pi / 2
+//        planeNode.eulerAngles.x = -.pi / 2
         
         // This should flash for a while than stay there
-        planeNode.runAction(self.imageHighlightAction)
+//        planeNode.runAction(self.imageHighlightAction)
         return planeNode
     }
     

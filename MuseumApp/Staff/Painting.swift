@@ -17,32 +17,30 @@ class Painting: NSObject, NSCoding{
     var photo: UIImage
     var content: String? //Optional
     var phisical_size_x: CGFloat
+    var objectArray : [objInfo]
     
     // Types
     struct PropertyKey {
         static let name = "name"
         static let photo = "photo"
         static let content = "content"
-        static let phisical_size_x = "phisical_size_x" // Need to add Input field for this !
+        static let phisical_size_x = "phisical_size_x"
+        static let objectArray = "objectArray"
     }
     
     // Initializing
-    init?(name: String, photo: UIImage, content:String?, phisical_size_x:CGFloat){ // Because of ? it is a failable initializer
+    init?(name: String, photo: UIImage, content:String?, phisical_size_x:CGFloat, objectArray:[objInfo]){ // Because of ? it is a failable initializer
         // Initialization should fail if there's no name
         
         if name.isEmpty {
             return nil
         }
-        
-        //        guard (rating >= 0) && (rating <= 5) else {
-        //            return nil
-        //        }
-        
         // Initialize poroperties
         self.name = name
         self.photo = photo
         self.content = content
         self.phisical_size_x = phisical_size_x
+        self.objectArray = objectArray
     }
     
     // NSCoding
@@ -52,6 +50,7 @@ class Painting: NSObject, NSCoding{
         aCoder.encode(photo, forKey: PropertyKey.photo)
         aCoder.encode(content, forKey: PropertyKey.content)
         aCoder.encode(phisical_size_x, forKey: PropertyKey.phisical_size_x)
+        aCoder.encode(objectArray, forKey:PropertyKey.objectArray)
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
@@ -66,9 +65,9 @@ class Painting: NSObject, NSCoding{
         // Because photo is an optional property of Painting, just use conditional cast.
         let photo = aDecoder.decodeObject(forKey: PropertyKey.photo) as! UIImage
         let content = aDecoder.decodeObject(forKey: PropertyKey.content) as? String
-        let phisical_size_x = aDecoder.decodeObject(forKey: PropertyKey.phisical_size_x) as? CGFloat
-        
-        self.init(name: name, photo: photo, content: content, phisical_size_x: phisical_size_x!)
+        let phisical_size_x = aDecoder.decodeObject(forKey: PropertyKey.phisical_size_x) as! CGFloat
+        let objectArray = aDecoder.decodeObject(forKey: PropertyKey.objectArray) as? [objInfo]
+        self.init(name: name, photo: photo, content: content, phisical_size_x: phisical_size_x, objectArray: objectArray!)
     }
     
     // We need a persistent path on the file system where data will be saved and loaded, so you know where to look for it.
