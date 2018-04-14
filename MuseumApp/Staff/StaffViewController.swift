@@ -22,8 +22,6 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
     @IBOutlet weak var paintingSize_x: UITextField!
 //    @IBOutlet weak var gotObjArray: UIButton!
     
-    public var gotObjectArray : [objInfo] = []
-    
     /*
      This value is either passed by `StaffTableViewController` in `prepare(for:sender:)`
      or constructed as part of adding a new painting.
@@ -280,41 +278,7 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
     
     // This method lets you configure a view controller before it's presented.
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        
-//        super.prepare(for: segue, sender: sender)
-//        switch(segue.identifier ?? "") {
-//        case "saveButton":
-//            let name = nameTextField.text ?? ""
-//            let photo = photoImageView.image
-//            let content = addContent.text ?? ""
-//            let gotSize = paintingSize_x.text ?? ""
-//            let pSize = Float(gotSize)
-//            let phisical_size_x = CGFloat(pSize!) // Add a field to retrive it!
-//            //        let rating = ratingControl.rating
-//            let objectArray = painting?.objectArray
-//            print("<<<<< SHOULD HAVE OBJECTS \(objectArray)")
-//            
-//            // Set the painting to be passed to StaffTableViewController after the unwind segue.
-//            painting = Painting(name: name, photo: photo!, content:content, phisical_size_x:phisical_size_x, objectArray:objectArray!)
-//        case "Add objects to be detected":
-//            guard let addingObjects = segue.destination as? SelectObjectsView else {
-//                fatalError("Unexpected destination: \(segue.destination)")
-//            }
-//            addingObjects.theImagePassed = painting
-//        default:
-//            os_log("Unexpected Segue Identifier.", log: OSLog.default, type: .debug)
-//            return
-//        }
-        
-        
-        
-        
-        
-//        if let destination = segue.destination as? SelectObjectsView {
-//            print("In prepare the right thing happened")
-//            destination.delegate = self
-//        }
+
         super.prepare(for: segue, sender: sender) // add a call to the superclass’s implementation
 
         // Configure the destination view controller only when the save button is pressed.
@@ -328,13 +292,13 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
         let content = addContent.text ?? ""
         let gotSize = paintingSize_x.text ?? ""
         let pSize = Float(gotSize)
-        let phisical_size_x = CGFloat(pSize!) // Add a field to retrive it!
+        let phisical_size_x = CGFloat(pSize!)
         //        let rating = ratingControl.rating
-        let objectArray = painting?.objectArray[0]
+        let objectArray = painting?.objectArray
         print("<<<<< SHOULD HAVE OBJECTS \(String(describing: objectArray))")
 
         // Set the painting to be passed to StaffTableViewController after the unwind segue.
-        painting = Painting(name: name, photo: photo!, content:content, phisical_size_x:phisical_size_x, objectArray:[objectArray!])
+        painting = Painting(name: name, photo: photo!, content:content, phisical_size_x:phisical_size_x, objectArray:objectArray)
 //
     }
 

@@ -9,6 +9,7 @@ target 'MuseumApp' do
 
   target 'MuseumAppTests' do
     inherit! :search_paths
+    pod 'Disk', '~> 0.3.3'
     # Pods for testing
   end
 

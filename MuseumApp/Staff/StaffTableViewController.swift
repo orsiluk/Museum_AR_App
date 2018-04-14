@@ -26,7 +26,10 @@ class StaffTableViewController: UITableViewController {
             fatalError("Unable to instantiate impression")
         }
         
-        guard let painting2 = Painting(name: "park", photo: photo2!, content:nil, phisical_size_x:CGFloat(12), objectArray: []) else {
+        let obj = ObjInfo(posX: 3, posY: 0, width: 1.48936170212766, height: 1.85106382978723)
+        let obj2 = ObjInfo(posX: 2, posY: 0, width: 1.0, height: 1.22)
+        
+        guard let painting2 = Painting(name: "park", photo: photo2!, content:nil, phisical_size_x:CGFloat(12), objectArray: [obj,obj2]) else {
             fatalError("Unable to instantiate park")
         }
         

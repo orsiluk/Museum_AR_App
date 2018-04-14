@@ -36,7 +36,7 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
     var savedPaintings = [Painting]()
     var player : AVAudioPlayer?
     
-    var objectsOnPainting = [String: [objInfo]]()
+    var objectsOnPainting = [String: [ObjInfo]]()
     
     // MARK: - View Controller Life Cycle
 
@@ -132,6 +132,7 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
                 print("***** loadedPhoto: \(loaded.name)")
 
                 let newRef = ARReferenceImage(loadedPhoto.cgImage!, orientation: CGImagePropertyOrientation.up, physicalWidth: loaded.phisical_size_x/100)
+                // Set the elements of the dictionary - nameOfPainting->objectArray
                 objectsOnPainting[loaded.name] = loaded.objectArray
                 print("------ Object map element 1: \(String(describing: objectsOnPainting[loaded.name])) ----- Element 2 \(String(describing: loaded.objectArray))")
                 // We have to conver physical_size_x into meters!
