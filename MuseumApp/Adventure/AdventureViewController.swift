@@ -64,20 +64,26 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
             let location: CGPoint = rec.location(in: sceneView)
             let hits = self.sceneView.hitTest(location, options: nil)
             
-            // it crashes when the plane over the object is tapped.. why?
-            
             if !hits.isEmpty{
                 let tappedNode = hits.first?.node
-//                print("---- Tapped Node: \(String(describing: tappedNode?.parent?.name))")
+                print("---- Tapped Node: \(String(describing: tappedNode?.parent?.name))")
                 
                 if tappedNode!.parent?.name != nil {
-                    print("WILL TRY to play this : \(String(describing: tappedNode!.parent?.name))")
-                    self.playSound(name: String(describing: tappedNode!.parent!.name!))
-                    
-                }else if (tappedNode!.name != nil) {
-                    print("WILL TRY to play this istead : \(String(describing: tappedNode!.name))")
+                        self.playSound(name: String(describing: tappedNode!.parent!.name!))
+
+                }else if tappedNode!.name != nil {
+                    if tappedNode?.name != "targetObject" {
+//                    print("WILL TRY to play this istead : \(String(describing: tappedNode!.name))")
                     self.playSound(name: String(describing: tappedNode!.name!))
-                }else {
+                    } else {
+                        if tappedNode?.parent?.childNodes.count == 1 { // This is assuming there's only one object attached to the painting that's not something we should look for
+                            tappedNode?.parent?.opacity = 0.25
+                        }
+//                        print("CHILDNODES LEFT: \(String(describing: tappedNode?.parent?.childNodes))")
+                        tappedNode?.removeFromParentNode()
+                        
+                    }
+                } else {
                     print("No sound attached");
                 }
             }
@@ -104,15 +110,14 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
     // Prevents restarting the session while a restart is in progress.
     var isRestartAvailable = true
     
-    // Creates a new AR configuration to run on the `session`.
+    // Creates a new AR configuration
     
     func resetTracking() {
-        self.foundPaintings.removeAll() // Removes all elements from the dictionary if scene is reset.
+        self.foundPaintings.removeAll() // Removes all elements if scene is reset.
         guard let referenceImages = ARReferenceImage.referenceImages(inGroupNamed: "Paintings", bundle: nil) else {
             fatalError("Missing expected asset catalog resources.")
         }
-        
-        //print("----------------- \(referenceImages)")
+
         let configuration = ARWorldTrackingConfiguration() // Create configuration that detects six degrees of freedom (roll,pitch,yaw,x,y,z)
         configuration.detectionImages?.removeAll()
         savedPaintings.removeAll()
@@ -123,7 +128,8 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
                 node.removeFromParentNode()
             }
         }
-//        print("----- refrenceImages \(referenceImages)")
+        
+        // Is there are saved paintings
         if !(savedPaintings == []){
             var newRefIm = Set<ARReferenceImage>()
             // https://developer.apple.com/documentation/arkit/arreferenceimage/2942252-init
@@ -134,8 +140,7 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
                 let newRef = ARReferenceImage(loadedPhoto.cgImage!, orientation: CGImagePropertyOrientation.up, physicalWidth: loaded.phisical_size_x/100)
                 // Set the elements of the dictionary - nameOfPainting->objectArray
                 objectsOnPainting[loaded.name] = loaded.objectArray
-                print("------ Object map element 1: \(String(describing: objectsOnPainting[loaded.name])) ----- Element 2 \(String(describing: loaded.objectArray))")
-                // We have to conver physical_size_x into meters!
+                // We have to convert physical_size_x into meters!
                 newRef.name = loaded.name
                 newRefIm.insert(newRef)
             }
@@ -262,31 +267,33 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
          plane.materials[0].diffuse.contents = UIImage(named: imageName) */
         
         
-//        let plane = SCNPlane(width: detectedPainting.physicalSize.width,
-//                             height: detectedPainting.physicalSize.height)
-        let planeNode = SCNNode()
-//        planeNode.opacity = 0.05
-        
+        let plane = SCNPlane(width: detectedPainting.physicalSize.width,
+                             height: detectedPainting.physicalSize.height)
+        let planeNode = SCNNode(geometry: plane)
+
         let objects = objectsOnPainting[name]!
-        print(objects)
+//        print("@@@@@@@@@@@ \(objects)")
         for obj in objects {
             print("Addig object to \(obj.posX,obj.posY)")
             let miniPlane = SCNPlane(width: CGFloat(obj.width),
                                      height: CGFloat(obj.height))
+            let material = SCNMaterial()
+            material.diffuse.contents = UIColor.red
+            miniPlane.materials = [material]
             let objPlane = SCNNode(geometry: miniPlane)
-            objPlane.position = SCNVector3(obj.posX,0,obj.posY)
-            objPlane.opacity = 0.30
-            objPlane.eulerAngles.x = -.pi / 2
+            objPlane.position = SCNVector3(obj.posX, obj.posY, 0.001)
+            objPlane.name = "targetObject"
+            objPlane.opacity = 0.50
             planeNode.addChildNode(objPlane)
         }
         
-        
+        planeNode.opacity = 0.15
         /*
          `SCNPlane` is vertically oriented in its local coordinate space, but
          `ARImageAnchor` assumes the image is horizontal in its local space, so
          rotate the plane to match.
          */
-//        planeNode.eulerAngles.x = -.pi / 2
+        planeNode.eulerAngles.x = -.pi / 2
         
         // This should flash for a while than stay there
 //        planeNode.runAction(self.imageHighlightAction)
