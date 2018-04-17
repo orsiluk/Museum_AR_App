@@ -29,8 +29,10 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
     public var painting: Painting?
     
     // http://iosrevisited.blogspot.co.uk/2017/11/voice-recorder-swift-4.html
-    var recordButton = UIButton()
-    var playButton = UIButton()
+    var recordButtonTask = UIButton()
+    var playButtonTask = UIButton()
+    var recordButtonNext = UIButton()
+    var playButtonNext = UIButton()
     var isRecording = false
     var audioRecorder: AVAudioRecorder?
     var player : AVAudioPlayer?
@@ -64,12 +66,12 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
         updateSaveButtonState()
         
         view.backgroundColor = UIColor.black
-//        recordButton.translatesAutoresizingMaskIntoConstraints = false
-//        playButton.translatesAutoresizingMaskIntoConstraints = false
+//        recordButtonTask.translatesAutoresizingMaskIntoConstraints = false
+//        playButtonTask.translatesAutoresizingMaskIntoConstraints = false
 //        let anchorView = view.subviews[0].subviews[0].subviews[3]
 //
-//        view.addSubview(recordButton)
-//        view.addSubview(playButton)
+//        view.addSubview(recordButtonTask)
+//        view.addSubview(playButtonTask)
         
         // Asking user permission for accessing Microphone
         AVAudioSession.sharedInstance().requestRecordPermission () {
@@ -83,43 +85,72 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
             }
         }
         
-        print("OBJECT COORDONATE ARRAY \(String(describing: painting?.objectArray))")
-        
     }
     
     // Set up buttons and record audio
     
     // Adding play button and record button as subviews
     func setUpUI() {
-        recordButton.translatesAutoresizingMaskIntoConstraints = false
-        playButton.translatesAutoresizingMaskIntoConstraints = false
+        recordButtonTask.translatesAutoresizingMaskIntoConstraints = false
+        playButtonTask.translatesAutoresizingMaskIntoConstraints = false
         let anchorView = view.subviews[0].subviews[0].subviews[4]
 
-        view.addSubview(recordButton)
-        view.addSubview(playButton)
+        view.addSubview(recordButtonTask)
+        view.addSubview(playButtonTask)
         
         // Adding constraints to Record button
-        recordButton.centerXAnchor.constraint(equalTo: anchorView.centerXAnchor, constant: 35).isActive = true
-        recordButton.centerYAnchor.constraint(equalTo: anchorView.centerYAnchor, constant: 50).isActive = true
-//        recordButton.trailingAnchor.constraint(equalTo: addContent.leadingAnchor).isActive = true
+        recordButtonTask.centerXAnchor.constraint(equalTo: anchorView.centerXAnchor, constant: 35).isActive = true
+        recordButtonTask.centerYAnchor.constraint(equalTo: anchorView.centerYAnchor, constant: 50).isActive = true
+//        recordButtonTask.trailingAnchor.constraint(equalTo: addContent.leadingAnchor).isActive = true
         
-        let recordButtonHeightConstraint = recordButton.heightAnchor.constraint(equalToConstant: 60)
-        recordButtonHeightConstraint.isActive = true
-        recordButton.widthAnchor.constraint(equalTo: recordButton.heightAnchor, multiplier: 1.0).isActive = true
-        recordButton.setImage(#imageLiteral(resourceName: "record"), for: .normal)
-        recordButton.layer.cornerRadius = recordButtonHeightConstraint.constant/2
-        recordButton.layer.borderColor = UIColor.white.cgColor
-        recordButton.layer.borderWidth = 5.0
-        recordButton.imageEdgeInsets = UIEdgeInsetsMake(-20, -20, -20, -20)
-        recordButton.addTarget(self, action: #selector(record(sender:)), for: .touchUpInside)
+        let recordButtonTaskHeightConstraint = recordButtonTask.heightAnchor.constraint(equalToConstant: 60)
+        recordButtonTaskHeightConstraint.isActive = true
+        recordButtonTask.widthAnchor.constraint(equalTo: recordButtonTask.heightAnchor, multiplier: 1.0).isActive = true
+        recordButtonTask.setImage(#imageLiteral(resourceName: "record"), for: .normal)
+        recordButtonTask.setTitle("Record task", for: .normal)
+        recordButtonTask.layer.cornerRadius = recordButtonTaskHeightConstraint.constant/2
+        recordButtonTask.layer.borderColor = UIColor.white.cgColor
+        recordButtonTask.layer.borderWidth = 5.0
+        recordButtonTask.imageEdgeInsets = UIEdgeInsetsMake(-20, -20, -20, -20)
+        recordButtonTask.addTarget(self, action: #selector(record(sender:)), for: .touchUpInside)
         
         // Adding constraints to Play button
-        playButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        playButton.widthAnchor.constraint(equalTo: playButton.heightAnchor, multiplier: 1.0).isActive = true
-        playButton.trailingAnchor.constraint(equalTo: recordButton.leadingAnchor, constant: -8).isActive = true
-        playButton.centerYAnchor.constraint(equalTo: recordButton.centerYAnchor).isActive = true
-        playButton.setImage(#imageLiteral(resourceName: "play"), for: .normal)
-        playButton.addTarget(self, action: #selector(play(sender:)), for: .touchUpInside)
+        playButtonTask.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        playButtonTask.widthAnchor.constraint(equalTo: playButtonTask.heightAnchor, multiplier: 1.0).isActive = true
+        playButtonTask.trailingAnchor.constraint(equalTo: recordButtonTask.leadingAnchor, constant: -8).isActive = true
+        playButtonTask.centerYAnchor.constraint(equalTo: recordButtonTask.centerYAnchor).isActive = true
+        playButtonTask.setImage(#imageLiteral(resourceName: "play"), for: .normal)
+        playButtonTask.setTitle("Play task", for: .normal)
+        playButtonTask.addTarget(self, action: #selector(play(sender:)), for: .touchUpInside)
+        
+        recordButtonNext.translatesAutoresizingMaskIntoConstraints = false
+        playButtonNext.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(recordButtonNext)
+        view.addSubview(playButtonNext)
+        
+        // Adding constraints to Record button
+        recordButtonNext.centerXAnchor.constraint(equalTo: anchorView.centerXAnchor, constant: 35).isActive = true
+        recordButtonNext.centerYAnchor.constraint(equalTo: anchorView.centerYAnchor, constant: 50).isActive = true
+        
+        recordButtonTaskHeightConstraint.isActive = true
+        recordButtonTask.widthAnchor.constraint(equalTo: recordButtonTask.heightAnchor, multiplier: 1.0).isActive = true
+        recordButtonTask.setImage(#imageLiteral(resourceName: "record"), for: .normal)
+        recordButtonTask.setTitle("Record task", for: .normal)
+        recordButtonTask.layer.cornerRadius = recordButtonTaskHeightConstraint.constant/2
+        recordButtonTask.layer.borderColor = UIColor.white.cgColor
+        recordButtonTask.layer.borderWidth = 5.0
+        recordButtonTask.imageEdgeInsets = UIEdgeInsetsMake(-20, -20, -20, -20)
+        recordButtonTask.addTarget(self, action: #selector(record(sender:)), for: .touchUpInside)
+        
+        // Adding constraints to Play button
+        playButtonTask.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        playButtonTask.widthAnchor.constraint(equalTo: playButtonTask.heightAnchor, multiplier: 1.0).isActive = true
+        playButtonTask.trailingAnchor.constraint(equalTo: recordButtonTask.leadingAnchor, constant: -8).isActive = true
+        playButtonTask.centerYAnchor.constraint(equalTo: recordButtonTask.centerYAnchor).isActive = true
+        playButtonTask.setImage(#imageLiteral(resourceName: "play"), for: .normal)
+        playButtonTask.setTitle("Play task", for: .normal)
+        playButtonTask.addTarget(self, action: #selector(play(sender:)), for: .touchUpInside)
     }
     
     @objc func record(sender: UIButton) {
@@ -156,9 +187,10 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
             
             //5. Changing record icon to stop icon
             isRecording = true
-            recordButton.setImage(#imageLiteral(resourceName: "stop"), for: .normal)
-            recordButton.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
-            playButton.isEnabled = false
+            recordButtonTask.setImage(#imageLiteral(resourceName: "stop"), for: .normal)
+            recordButtonTask.setTitle("Record task", for: .normal)
+            recordButtonTask.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
+            playButtonTask.isEnabled = false
         }
         catch _{
             os_log("Failed to record!")
@@ -169,8 +201,8 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
     func finishRecording() {
         audioRecorder?.stop()
         isRecording = false
-        recordButton.imageEdgeInsets = UIEdgeInsetsMake(-20, -20, -20, -20)
-        recordButton.setImage(#imageLiteral(resourceName: "record"), for: .normal)
+        recordButtonTask.imageEdgeInsets = UIEdgeInsetsMake(-20, -20, -20, -20)
+        recordButtonTask.setImage(#imageLiteral(resourceName: "record"), for: .normal)
     }
     
     // Path for saving/retreiving the audio file
@@ -189,7 +221,7 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
         }else {
             // Recording interrupted by other reasons like call coming, reached time limit.
         }
-        playButton.isEnabled = true
+        playButtonTask.isEnabled = true
     }
     
     func playSound(){
@@ -204,7 +236,7 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
             sound.delegate = self
             sound.prepareToPlay()
             sound.play()
-            recordButton.isEnabled = false
+            recordButtonTask.isEnabled = false
         } catch {
             print("error loading file")
             // couldn't load file :(
@@ -217,7 +249,7 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
         }else {
             // Playing interrupted by other reasons like call coming, the sound has not finished playing.
         }
-        recordButton.isEnabled = true
+        recordButtonTask.isEnabled = true
     }
     
     //UITextfieldDelegate
@@ -295,7 +327,6 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
         let phisical_size_x = CGFloat(pSize!)
         //        let rating = ratingControl.rating
         let objectArray = painting?.objectArray
-        print("<<<<< SHOULD HAVE OBJECTS \(String(describing: objectArray))")
 
         // Set the painting to be passed to StaffTableViewController after the unwind segue.
         painting = Painting(name: name, photo: photo!, content:content, phisical_size_x:phisical_size_x, objectArray:objectArray)

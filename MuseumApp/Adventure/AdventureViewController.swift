@@ -211,7 +211,8 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
             node.addChildNode(planeNode)
             //Depending on which node I attache this to the reference point changes If I add it to planeNode whatever is applied to that node (animation etc. will happen to this obejct too)
             // node position is in the center of the detected image
-            let obj_pos_x = planeNode.position.x - Float(referenceImage.physicalSize.width)/2 - 0.1 // Put it on the left side 0.1 distance away from the painting edge
+            let obj_pos_x_left = planeNode.position.x - Float(referenceImage.physicalSize.width)/2 - 0.1 // Put it on the left side 0.1 distance away from the painting edge
+            let obj_pos_x_right = planeNode.position.x + Float(referenceImage.physicalSize.width)/2 + 0.02 // Put it on the left side 0.1 distance away from the painting edge
             let obj_pos_y = planeNode.position.y + 0.02 // Put it a bit more forward
             let obj_pos_z = planeNode.position.z + Float(referenceImage.physicalSize.height)/2 // put it on the same hight as the bottom of the painting
             //            let scale: Float = 0.25
@@ -220,17 +221,15 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
             if (referenceImage.name == "poppies"){
                 print(" :) nodeposition where pimage was recognized: \(node.position)")
                 // add object relative to the center of the image
-                newNode = self.addObjectToScene(name: "tree", x: obj_pos_x+0.05, y: obj_pos_y, z: obj_pos_z, scale: 0.005)
-            }else if (referenceImage.name == "park"){
+                newNode = self.addObjectToScene(name: "Looking Around", x: obj_pos_x_right, y: obj_pos_y, z: obj_pos_z, scale: 0.001)
+            } else if (referenceImage.name == "park"){
                 // add object relative to the center of the image
-                newNode = self.addObjectToScene(name: "myFly", x: obj_pos_x, y: obj_pos_y, z: obj_pos_z, scale: 0.02)
-            }else if (referenceImage.name == "princess"){
-                
+                newNode = self.addObjectToScene(name: "Pointing Left", x: obj_pos_x_right, y: obj_pos_y, z: obj_pos_z, scale: 0.001)
+            } else if (referenceImage.name == "princess"){
                 // add object relative to the center of the image
-                newNode = self.addObjectToScene(name: "paperPlane", x: obj_pos_x, y: obj_pos_y, z: obj_pos_z, scale: 1)
-            }
-            else{
-                newNode = self.addObjectToScene(name: "default", x: obj_pos_x, y: obj_pos_y, z: obj_pos_z, scale: 1)
+                newNode = self.addObjectToScene(name: "Clapping", x: obj_pos_x_left, y: obj_pos_y, z: obj_pos_z, scale: 0.001)
+            } else{
+                newNode = self.addObjectToScene(name: "Idle", x: obj_pos_x_left, y: obj_pos_y, z: obj_pos_z, scale: 0.001)
             }
             newNode.name = referenceImage.name
             node.addChildNode(newNode)
@@ -311,7 +310,7 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
             print("Input was \"default\" so generated a red sphere")
         }else {
             guard let objScene = SCNScene(named: "\(name ?? "default")" + ".dae") else { // Very insecure - FIX LATER
-                print("Object not found!")
+                print("Object \(String(describing: name)) not found!")
                 return self.addObjectToScene(name:"default", x: x, y: y, z: z, scale:scale) }
             let objChildNodes = objScene.rootNode.childNodes
             
