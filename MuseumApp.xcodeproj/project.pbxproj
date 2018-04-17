@@ -10,13 +10,13 @@
 		610C5188204445B8000358F6 /* Painting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610C5187204445B8000358F6 /* Painting.swift */; };
 		610EA27820431B7F00B72E89 /* RatingControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610EA27720431B7F00B72E89 /* RatingControl.swift */; };
 		611AD1782052FEBD0017E366 /* resourceImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611AD1772052FEBD0017E366 /* resourceImages.swift */; };
-		6166D8FC2085F64600BDE5D5 /* Looking Around.dae in Resources */ = {isa = PBXBuildFile; fileRef = 6166D8FB2085F64600BDE5D5 /* Looking Around.dae */; };
-		6166D901208603ED00BDE5D5 /* Clapping.dae in Resources */ = {isa = PBXBuildFile; fileRef = 6166D8FD208603ED00BDE5D5 /* Clapping.dae */; };
-		6166D902208603ED00BDE5D5 /* Pointing Right.dae in Resources */ = {isa = PBXBuildFile; fileRef = 6166D8FE208603ED00BDE5D5 /* Pointing Right.dae */; };
-		6166D903208603ED00BDE5D5 /* Pointing Left.dae in Resources */ = {isa = PBXBuildFile; fileRef = 6166D8FF208603ED00BDE5D5 /* Pointing Left.dae */; };
-		6166D904208603ED00BDE5D5 /* Waving.dae in Resources */ = {isa = PBXBuildFile; fileRef = 6166D900208603ED00BDE5D5 /* Waving.dae */; };
-		6166D90720860B1600BDE5D5 /* Idle.dae in Resources */ = {isa = PBXBuildFile; fileRef = 6166D90520860B1500BDE5D5 /* Idle.dae */; };
-		6166D90C20860BA700BDE5D5 /* Waiting.dae in Resources */ = {isa = PBXBuildFile; fileRef = 6166D90B20860BA700BDE5D5 /* Waiting.dae */; };
+		612DCF0E20861D61006A8AA6 /* Looking Around.dae in Resources */ = {isa = PBXBuildFile; fileRef = 612DCF0D20861D61006A8AA6 /* Looking Around.dae */; };
+		6153B912208622DA0075842D /* Clapping.dae in Resources */ = {isa = PBXBuildFile; fileRef = 6153B90C208622D90075842D /* Clapping.dae */; };
+		6153B913208622DA0075842D /* Waiting.dae in Resources */ = {isa = PBXBuildFile; fileRef = 6153B90D208622D90075842D /* Waiting.dae */; };
+		6153B914208622DA0075842D /* Pointing Left.dae in Resources */ = {isa = PBXBuildFile; fileRef = 6153B90E208622D90075842D /* Pointing Left.dae */; };
+		6153B915208622DA0075842D /* Idle.dae in Resources */ = {isa = PBXBuildFile; fileRef = 6153B90F208622D90075842D /* Idle.dae */; };
+		6153B916208622DA0075842D /* Pointing Right.dae in Resources */ = {isa = PBXBuildFile; fileRef = 6153B910208622DA0075842D /* Pointing Right.dae */; };
+		6153B917208622DA0075842D /* Waving.dae in Resources */ = {isa = PBXBuildFile; fileRef = 6153B911208622DA0075842D /* Waving.dae */; };
 		616BFF432056D47800C34790 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 611AD1792055F6010017E366 /* Assets.xcassets */; };
 		616C72D22037089800BC8CD9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616C72D12037089800BC8CD9 /* AppDelegate.swift */; };
 		616C72D42037089800BC8CD9 /* StaffViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616C72D32037089800BC8CD9 /* StaffViewController.swift */; };
@@ -50,13 +50,13 @@
 		610EA27720431B7F00B72E89 /* RatingControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingControl.swift; sourceTree = "<group>"; };
 		611AD1772052FEBD0017E366 /* resourceImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = resourceImages.swift; sourceTree = "<group>"; };
 		611AD1792055F6010017E366 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = /Users/lukacs_orsi/Desktop/Year_4/Thesis/MuseumApp/MuseumApp/Assets.xcassets; sourceTree = "<absolute>"; };
-		6166D8FB2085F64600BDE5D5 /* Looking Around.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; name = "Looking Around.dae"; path = "MuseumApp/3D Objects/Looking Around/Looking Around.dae"; sourceTree = SOURCE_ROOT; };
-		6166D8FD208603ED00BDE5D5 /* Clapping.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; name = Clapping.dae; path = "MuseumApp/3D Objects/Clapping/Clapping.dae"; sourceTree = SOURCE_ROOT; };
-		6166D8FE208603ED00BDE5D5 /* Pointing Right.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; name = "Pointing Right.dae"; path = "MuseumApp/3D Objects/Pointing Right/Pointing Right.dae"; sourceTree = SOURCE_ROOT; };
-		6166D8FF208603ED00BDE5D5 /* Pointing Left.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; name = "Pointing Left.dae"; path = "MuseumApp/3D Objects/Pointing Left/Pointing Left.dae"; sourceTree = SOURCE_ROOT; };
-		6166D900208603ED00BDE5D5 /* Waving.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; name = Waving.dae; path = "MuseumApp/3D Objects/Waving/Waving.dae"; sourceTree = SOURCE_ROOT; };
-		6166D90520860B1500BDE5D5 /* Idle.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; name = Idle.dae; path = "MuseumApp/3D Objects/Idle/Idle.dae"; sourceTree = SOURCE_ROOT; };
-		6166D90B20860BA700BDE5D5 /* Waiting.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; name = Waiting.dae; path = ../../../../../../Downloads/Waiting/Waiting.dae; sourceTree = "<group>"; };
+		612DCF0D20861D61006A8AA6 /* Looking Around.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; name = "Looking Around.dae"; path = "MuseumApp/3D Objects/Looking Around/Looking Around.dae"; sourceTree = SOURCE_ROOT; };
+		6153B90C208622D90075842D /* Clapping.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; name = Clapping.dae; path = "MuseumApp/3D Objects/Clapping/Clapping.dae"; sourceTree = SOURCE_ROOT; };
+		6153B90D208622D90075842D /* Waiting.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; name = Waiting.dae; path = "MuseumApp/3D Objects/Waiting/Waiting.dae"; sourceTree = SOURCE_ROOT; };
+		6153B90E208622D90075842D /* Pointing Left.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; name = "Pointing Left.dae"; path = "MuseumApp/3D Objects/Pointing Left/Pointing Left.dae"; sourceTree = SOURCE_ROOT; };
+		6153B90F208622D90075842D /* Idle.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; name = Idle.dae; path = "MuseumApp/3D Objects/Idle/Idle.dae"; sourceTree = SOURCE_ROOT; };
+		6153B910208622DA0075842D /* Pointing Right.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; name = "Pointing Right.dae"; path = "MuseumApp/3D Objects/Pointing Right/Pointing Right.dae"; sourceTree = SOURCE_ROOT; };
+		6153B911208622DA0075842D /* Waving.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; name = Waving.dae; path = "MuseumApp/3D Objects/Waving/Waving.dae"; sourceTree = SOURCE_ROOT; };
 		616C72CE2037089800BC8CD9 /* MuseumApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MuseumApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		616C72D12037089800BC8CD9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		616C72D32037089800BC8CD9 /* StaffViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaffViewController.swift; sourceTree = "<group>"; };
@@ -142,15 +142,15 @@
 			isa = PBXGroup;
 			children = (
 				61AA4682204C674E00912B97 /* car.dae */,
-				6166D90520860B1500BDE5D5 /* Idle.dae */,
 				61AA4683204C674E00912B97 /* myFly.dae */,
-				6166D8FB2085F64600BDE5D5 /* Looking Around.dae */,
-				6166D8FD208603ED00BDE5D5 /* Clapping.dae */,
-				6166D90B20860BA700BDE5D5 /* Waiting.dae */,
-				6166D8FF208603ED00BDE5D5 /* Pointing Left.dae */,
-				6166D8FE208603ED00BDE5D5 /* Pointing Right.dae */,
-				6166D900208603ED00BDE5D5 /* Waving.dae */,
+				6153B90C208622D90075842D /* Clapping.dae */,
+				6153B90F208622D90075842D /* Idle.dae */,
+				6153B90E208622D90075842D /* Pointing Left.dae */,
+				6153B910208622DA0075842D /* Pointing Right.dae */,
+				6153B90D208622D90075842D /* Waiting.dae */,
+				6153B911208622DA0075842D /* Waving.dae */,
 				61FB1C84205955D80008D585 /* tree.dae */,
+				612DCF0D20861D61006A8AA6 /* Looking Around.dae */,
 				61AA4681204C674E00912B97 /* paperPlane.scn */,
 			);
 			path = ARObjects;
@@ -261,19 +261,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6153B913208622DA0075842D /* Waiting.dae in Resources */,
+				6153B914208622DA0075842D /* Pointing Left.dae in Resources */,
+				6153B916208622DA0075842D /* Pointing Right.dae in Resources */,
 				61AA4684204C674E00912B97 /* paperPlane.scn in Resources */,
-				6166D903208603ED00BDE5D5 /* Pointing Left.dae in Resources */,
 				616C72DC2037089A00BC8CD9 /* LaunchScreen.storyboard in Resources */,
-				6166D8FC2085F64600BDE5D5 /* Looking Around.dae in Resources */,
 				61FB1C85205955D80008D585 /* tree.dae in Resources */,
-				6166D90720860B1600BDE5D5 /* Idle.dae in Resources */,
 				61AA4686204C674E00912B97 /* myFly.dae in Resources */,
-				6166D904208603ED00BDE5D5 /* Waving.dae in Resources */,
-				6166D90C20860BA700BDE5D5 /* Waiting.dae in Resources */,
 				61AA4685204C674E00912B97 /* car.dae in Resources */,
-				6166D901208603ED00BDE5D5 /* Clapping.dae in Resources */,
 				616BFF432056D47800C34790 /* Assets.xcassets in Resources */,
-				6166D902208603ED00BDE5D5 /* Pointing Right.dae in Resources */,
+				6153B912208622DA0075842D /* Clapping.dae in Resources */,
+				6153B917208622DA0075842D /* Waving.dae in Resources */,
+				612DCF0E20861D61006A8AA6 /* Looking Around.dae in Resources */,
+				6153B915208622DA0075842D /* Idle.dae in Resources */,
 				6183E58B20457F1900B2C3A3 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
