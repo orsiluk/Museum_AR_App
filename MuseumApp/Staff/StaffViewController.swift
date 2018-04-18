@@ -107,12 +107,13 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
         recordButtonTaskHeightConstraint.isActive = true
         recordButtonTask.widthAnchor.constraint(equalTo: recordButtonTask.heightAnchor, multiplier: 1.0).isActive = true
         recordButtonTask.setImage(#imageLiteral(resourceName: "record"), for: .normal)
-        recordButtonTask.setTitle("Record task", for: .normal)
         recordButtonTask.layer.cornerRadius = recordButtonTaskHeightConstraint.constant/2
         recordButtonTask.layer.borderColor = UIColor.white.cgColor
         recordButtonTask.layer.borderWidth = 5.0
         recordButtonTask.imageEdgeInsets = UIEdgeInsetsMake(-20, -20, -20, -20)
+        recordButtonTask.tag = 1
         recordButtonTask.addTarget(self, action: #selector(record(sender:)), for: .touchUpInside)
+        
         
         // Adding constraints to Play button
         playButtonTask.heightAnchor.constraint(equalToConstant: 60).isActive = true
@@ -120,8 +121,9 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
         playButtonTask.trailingAnchor.constraint(equalTo: recordButtonTask.leadingAnchor, constant: -8).isActive = true
         playButtonTask.centerYAnchor.constraint(equalTo: recordButtonTask.centerYAnchor).isActive = true
         playButtonTask.setImage(#imageLiteral(resourceName: "play"), for: .normal)
-        playButtonTask.setTitle("Play task", for: .normal)
+        playButtonTask.tag = 1
         playButtonTask.addTarget(self, action: #selector(play(sender:)), for: .touchUpInside)
+        
         
         recordButtonNext.translatesAutoresizingMaskIntoConstraints = false
         playButtonNext.translatesAutoresizingMaskIntoConstraints = false
@@ -131,41 +133,53 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
         
         // Adding constraints to Record button
         recordButtonNext.centerXAnchor.constraint(equalTo: anchorView.centerXAnchor, constant: 35).isActive = true
-        recordButtonNext.centerYAnchor.constraint(equalTo: anchorView.centerYAnchor, constant: 50).isActive = true
+        recordButtonNext.centerYAnchor.constraint(equalTo: anchorView.centerYAnchor, constant: 120).isActive = true
         
-        recordButtonTaskHeightConstraint.isActive = true
-        recordButtonTask.widthAnchor.constraint(equalTo: recordButtonTask.heightAnchor, multiplier: 1.0).isActive = true
-        recordButtonTask.setImage(#imageLiteral(resourceName: "record"), for: .normal)
-        recordButtonTask.setTitle("Record task", for: .normal)
-        recordButtonTask.layer.cornerRadius = recordButtonTaskHeightConstraint.constant/2
-        recordButtonTask.layer.borderColor = UIColor.white.cgColor
-        recordButtonTask.layer.borderWidth = 5.0
-        recordButtonTask.imageEdgeInsets = UIEdgeInsetsMake(-20, -20, -20, -20)
-        recordButtonTask.addTarget(self, action: #selector(record(sender:)), for: .touchUpInside)
+        let recordButtonNextHeightConstraint = recordButtonNext.heightAnchor.constraint(equalToConstant: 60)
+        recordButtonNextHeightConstraint.isActive = true
+        recordButtonNext.widthAnchor.constraint(equalTo: recordButtonNext.heightAnchor, multiplier: 1.0).isActive = true
+        recordButtonNext.setImage(#imageLiteral(resourceName: "record"), for: .normal)
+        recordButtonNext.layer.cornerRadius = recordButtonTaskHeightConstraint.constant/2
+        recordButtonNext.layer.borderColor = UIColor.white.cgColor
+        recordButtonNext.layer.borderWidth = 5.0
+        recordButtonNext.imageEdgeInsets = UIEdgeInsetsMake(-20, -20, -20, -20)
+        recordButtonNext.tag = 2
+        recordButtonNext.addTarget(self, action: #selector(record(sender:)), for: .touchUpInside)
+        
         
         // Adding constraints to Play button
-        playButtonTask.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        playButtonTask.widthAnchor.constraint(equalTo: playButtonTask.heightAnchor, multiplier: 1.0).isActive = true
-        playButtonTask.trailingAnchor.constraint(equalTo: recordButtonTask.leadingAnchor, constant: -8).isActive = true
-        playButtonTask.centerYAnchor.constraint(equalTo: recordButtonTask.centerYAnchor).isActive = true
-        playButtonTask.setImage(#imageLiteral(resourceName: "play"), for: .normal)
-        playButtonTask.setTitle("Play task", for: .normal)
-        playButtonTask.addTarget(self, action: #selector(play(sender:)), for: .touchUpInside)
+        playButtonNext.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        playButtonNext.widthAnchor.constraint(equalTo: playButtonTask.heightAnchor, multiplier: 1.0).isActive = true
+        playButtonNext.trailingAnchor.constraint(equalTo: recordButtonNext.leadingAnchor, constant: -8).isActive = true
+        playButtonNext.centerYAnchor.constraint(equalTo: recordButtonNext.centerYAnchor).isActive = true
+        playButtonNext.setImage(#imageLiteral(resourceName: "play"), for: .normal)
+        playButtonNext.tag = 2
+        playButtonNext.addTarget(self, action: #selector(play(sender:)), for: .touchUpInside)
+        
     }
     
     @objc func record(sender: UIButton) {
+//        if isRecording {
+//
+//            finishRecording()
+//        }else {
+//            startRecording()
+//        }
+        
         if isRecording {
+
             finishRecording()
         }else {
-            startRecording()
+            startRecording(tag: sender.tag)
         }
+        
     }
     
     @objc func play(sender: UIButton) {
-        playSound()
+        playSound(tag : sender.tag)
     }
     
-    func startRecording() {
+    func startRecording(tag: Int) {
         //1. create the session
         let session = AVAudioSession.sharedInstance()
         
@@ -181,16 +195,21 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
                 AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
             ]
             // 4. create the audio recording, and assign ourselves as the delegate
-            audioRecorder = try AVAudioRecorder(url: getAudioFileUrl(), settings: settings)
+            audioRecorder = try AVAudioRecorder(url: getAudioFileUrl(tag:tag), settings: settings)
             audioRecorder?.delegate = self
             audioRecorder?.record()
             
             //5. Changing record icon to stop icon
             isRecording = true
-            recordButtonTask.setImage(#imageLiteral(resourceName: "stop"), for: .normal)
-            recordButtonTask.setTitle("Record task", for: .normal)
-            recordButtonTask.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
+            if tag == 1{
+                recordButtonTask.setImage(#imageLiteral(resourceName: "stop"), for: .normal)
+                recordButtonTask.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
+            } else if tag == 2 {
+                recordButtonNext.setImage(#imageLiteral(resourceName: "stop"), for: .normal)
+                recordButtonNext.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
+            }
             playButtonTask.isEnabled = false
+            playButtonNext.isEnabled = false
         }
         catch _{
             os_log("Failed to record!")
@@ -203,15 +222,24 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
         isRecording = false
         recordButtonTask.imageEdgeInsets = UIEdgeInsetsMake(-20, -20, -20, -20)
         recordButtonTask.setImage(#imageLiteral(resourceName: "record"), for: .normal)
+        recordButtonNext.imageEdgeInsets = UIEdgeInsetsMake(-20, -20, -20, -20)
+        recordButtonNext.setImage(#imageLiteral(resourceName: "record"), for: .normal)
     }
     
     // Path for saving/retreiving the audio file
-    func getAudioFileUrl() -> URL{
+    func getAudioFileUrl(tag : Int) -> URL{
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let docsDirect = paths[0]
         // Here I want to pass in the painting's name, that way we can load it - Find a way to figure which painting it is - could save in a field the filename instead of anything else
         let name = nameTextField.text ?? ""
-        let audioUrl = docsDirect.appendingPathComponent("\(name).m4a")
+        var tagname  = ""
+        if tag == 1 {
+            tagname = "task"
+        } else {
+            tagname = "next"
+        }
+        let audioUrl = docsDirect.appendingPathComponent("\(name)_\(tagname).m4a")
+        
         return audioUrl
     }
     
@@ -221,11 +249,14 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
         }else {
             // Recording interrupted by other reasons like call coming, reached time limit.
         }
+        
         playButtonTask.isEnabled = true
+        playButtonNext.isEnabled = true
+        
     }
     
-    func playSound(){
-        let url = getAudioFileUrl()
+    func playSound(tag : Int){
+        let url = getAudioFileUrl(tag : tag)
 //        print("URL in STAFF: \(url)")
         do {
             // AVAudioPlayer setting up with the saved file URL
@@ -237,6 +268,7 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
             sound.prepareToPlay()
             sound.play()
             recordButtonTask.isEnabled = false
+            recordButtonNext.isEnabled = false
         } catch {
             print("error loading file")
             // couldn't load file :(
@@ -244,12 +276,8 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
     }
     
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        if flag {
-            
-        }else {
-            // Playing interrupted by other reasons like call coming, the sound has not finished playing.
-        }
         recordButtonTask.isEnabled = true
+        recordButtonNext.isEnabled = true
     }
     
     //UITextfieldDelegate

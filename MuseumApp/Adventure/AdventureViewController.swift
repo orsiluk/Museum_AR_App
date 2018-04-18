@@ -39,7 +39,7 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
     var objectsOnPainting = [String: [ObjInfo]]()
     
     // MARK: - View Controller Life Cycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -57,7 +57,6 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
         }
     }
     
-    //Method called when tap
     @objc func handleTap(rec: UITapGestureRecognizer){
         
         if rec.state == .ended {
@@ -65,26 +64,37 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
             let hits = self.sceneView.hitTest(location, options: nil)
             
             if !hits.isEmpty{
-                let tappedNode = hits.first?.node
-                print("---- Tapped Node: \(String(describing: tappedNode?.parent?.name))")
-                
-                if tappedNode!.parent?.name != nil {
-                        self.playSound(name: String(describing: tappedNode!.parent!.name!))
-
-                }else if tappedNode!.name != nil {
-                    if tappedNode?.name != "targetObject" {
-//                    print("WILL TRY to play this istead : \(String(describing: tappedNode!.name))")
-                    self.playSound(name: String(describing: tappedNode!.name!))
-                    } else {
-                        if tappedNode?.parent?.childNodes.count == 1 { // This is assuming there's only one object attached to the painting that's not something we should look for
-                            tappedNode?.parent?.opacity = 0.25
-                        }
-//                        print("CHILDNODES LEFT: \(String(describing: tappedNode?.parent?.childNodes))")
-                        tappedNode?.removeFromParentNode()
-                        
+                var tappedNode = hits.first?.node
+                if tappedNode!.name == "targetObject" {
+                    
+                    // If this is the last child node, play next instruction, either case remove tapped node from the parent
+                    if tappedNode?.parent?.childNodes.count == 1 { // This is assuming there's only one object attached to the painting that's not something we should look for
+                        tappedNode?.parent?.opacity = 0.15
+                        self.playSound(name: tappedNode!.parent!.name!, which: "next")
+                        print("WE FOUND ALL OBJECTS")
                     }
+                    print("Number of child nodes left: \(String(describing: tappedNode?.parent?.childNodes.count))")
+                    tappedNode?.removeFromParentNode()
                 } else {
-                    print("No sound attached");
+                    var found = false
+                    // Look for node with name "ARObject" since all AR objects constructed will have this as the first node right after the node containing the painting's name
+                    if tappedNode!.name == "ARObject" {
+                        self.playSound(name: tappedNode!.parent!.name!, which: "task")
+                        found = true
+                    } else {
+                        while tappedNode!.parent!.name != nil {
+                            if tappedNode!.name == "ARObject"{
+                                found = true
+                                self.playSound(name: tappedNode!.parent!.name!, which: "task")
+                                break
+                            } else {
+                                tappedNode = tappedNode!.parent
+                            }
+                        }
+                    }
+                    if !found {
+                        print ("AUDIO NOT FOUND!")
+                    }
                 }
             }
         }
@@ -117,7 +127,7 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
         guard let referenceImages = ARReferenceImage.referenceImages(inGroupNamed: "Paintings", bundle: nil) else {
             fatalError("Missing expected asset catalog resources.")
         }
-
+        
         let configuration = ARWorldTrackingConfiguration() // Create configuration that detects six degrees of freedom (roll,pitch,yaw,x,y,z)
         configuration.detectionImages?.removeAll()
         savedPaintings.removeAll()
@@ -136,7 +146,7 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
             for loaded in (savedPaintings) {
                 let loadedPhoto = loaded.photo
                 print("***** loadedPhoto: \(loaded.name)")
-
+                
                 let newRef = ARReferenceImage(loadedPhoto.cgImage!, orientation: CGImagePropertyOrientation.up, physicalWidth: loaded.phisical_size_x/100)
                 // Set the elements of the dictionary - nameOfPainting->objectArray
                 objectsOnPainting[loaded.name] = loaded.objectArray
@@ -155,14 +165,14 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
     
     
     private func loadPaintings() -> [Painting]?{
-//        print("urlpath  :      \(Painting.ArchiveURL.path)")
+        //        print("urlpath  :      \(Painting.ArchiveURL.path)")
         
         // TOFIX: If there is nothing saved on the device, it will crash.
         
         return (NSKeyedUnarchiver.unarchiveObject(withFile: Painting.ArchiveURL.path) as? [Painting])!
         // attempt to unarchive the object stored at the path Painting.ArchiveURL.path and downcast that object to an array of Painting objects
     }
- 
+    
     func getAudioFileUrl(name: String) -> URL{
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let docsDirect = paths[0]
@@ -172,10 +182,10 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
         return audioUrl
     }
     
-    func playSound(name: String){
-        let url = getAudioFileUrl(name:name)
+    func playSound(name: String, which: String){
+        let url = getAudioFileUrl(name: "\(name)_\(which)")
         print("Playing sound for painting \(name)")
-        print("URL in ADVENTURE: \(url)")
+//        print("URL in ADVENTURE: \(url)")
         do {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: .mixWithOthers)
             print("Playback OK")
@@ -201,7 +211,7 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         guard let imageAnchor = anchor as? ARImageAnchor else { return }
         // anchor contains inormation such as where the image was detected and the reference image we compared it to
-
+        
         let referenceImage = imageAnchor.referenceImage
         print("---- Image with name = \(String(describing: referenceImage.name)) was found")
         updateQueue.async {
@@ -211,29 +221,30 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
             node.addChildNode(planeNode)
             //Depending on which node I attache this to the reference point changes If I add it to planeNode whatever is applied to that node (animation etc. will happen to this obejct too)
             // node position is in the center of the detected image
-            let obj_pos_x_left = planeNode.position.x - Float(referenceImage.physicalSize.width)/2 - 0.1 // Put it on the left side 0.1 distance away from the painting edge
+            let obj_pos_x_left = planeNode.position.x - Float(referenceImage.physicalSize.width)/2 - 0.02 // Put it on the left side 0.1 distance away from the painting edge
             let obj_pos_x_right = planeNode.position.x + Float(referenceImage.physicalSize.width)/2 + 0.02 // Put it on the left side 0.1 distance away from the painting edge
             let obj_pos_y = planeNode.position.y + 0.02 // Put it a bit more forward
             let obj_pos_z = planeNode.position.z + Float(referenceImage.physicalSize.height)/2 // put it on the same hight as the bottom of the painting
             //            let scale: Float = 0.25
             var newNode = SCNNode()
-            
+            var ARNode = SCNNode()
             if (referenceImage.name == "poppies"){
                 print(" :) nodeposition where pimage was recognized: \(node.position)")
                 // add object relative to the center of the image
-                newNode = self.addObjectToScene(name: "Looking Around", x: obj_pos_x_right, y: obj_pos_y, z: obj_pos_z, scale: 0.001)
+                ARNode = self.addObjectToScene(name: "Looking Around", x: obj_pos_x_right, y: obj_pos_y, z: obj_pos_z, scale: 0.001)
             } else if (referenceImage.name == "park"){
                 // add object relative to the center of the image
-                newNode = self.addObjectToScene(name: "Pointing Left", x: obj_pos_x_right, y: obj_pos_y, z: obj_pos_z, scale: 0.001)
+                ARNode = self.addObjectToScene(name: "Pointing Left", x: obj_pos_x_right, y: obj_pos_y, z: obj_pos_z, scale: 0.0005)
             } else if (referenceImage.name == "princess"){
                 // add object relative to the center of the image
-                newNode = self.addObjectToScene(name: "Clapping", x: obj_pos_x_left, y: obj_pos_y, z: obj_pos_z, scale: 0.001)
+                ARNode = self.addObjectToScene(name: "Clapping", x: obj_pos_x_right, y: obj_pos_y, z: obj_pos_z, scale: 0.0005)
             } else{
-                newNode = self.addObjectToScene(name: "Idle", x: obj_pos_x_left, y: obj_pos_y, z: obj_pos_z, scale: 0.001)
+                ARNode = self.addObjectToScene(name: "Idle", x: obj_pos_x_left, y: obj_pos_y, z: obj_pos_z, scale: 0.0007)
             }
+            newNode.addChildNode(ARNode)
             newNode.name = referenceImage.name
             node.addChildNode(newNode)
-
+            
             self.foundPaintings[imageAnchor] = planeNode // add to the dictionary a pair of <ImageAnchor,SCNNode()> where SCNNode is my new plane that is over the painting
             //self.playSound(name: "Painting_\(String(describing: referenceImage.name))")
         }
@@ -269,9 +280,9 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
         let plane = SCNPlane(width: detectedPainting.physicalSize.width,
                              height: detectedPainting.physicalSize.height)
         let planeNode = SCNNode(geometry: plane)
-
+        
         let objects = objectsOnPainting[name]!
-//        print("@@@@@@@@@@@ \(objects)")
+        //        print("@@@@@@@@@@@ \(objects)")
         for obj in objects {
             print("Addig object to \(obj.posX,obj.posY)")
             let miniPlane = SCNPlane(width: CGFloat(obj.width),
@@ -280,13 +291,14 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
             material.diffuse.contents = UIColor.red
             miniPlane.materials = [material]
             let objPlane = SCNNode(geometry: miniPlane)
-            objPlane.position = SCNVector3(obj.posX, obj.posY, 0.001)
+            objPlane.position = SCNVector3(obj.posX, obj.posY, 0.005)
             objPlane.name = "targetObject"
-            objPlane.opacity = 0.50
+//            objPlane.opacity = 0.50
             planeNode.addChildNode(objPlane)
         }
         
-        planeNode.opacity = 0.15
+        planeNode.opacity = 0.02
+        planeNode.name = detectedPainting.name
         /*
          `SCNPlane` is vertically oriented in its local coordinate space, but
          `ARImageAnchor` assumes the image is horizontal in its local space, so
@@ -295,21 +307,24 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
         planeNode.eulerAngles.x = -.pi / 2
         
         // This should flash for a while than stay there
-//        planeNode.runAction(self.imageHighlightAction)
+        //        planeNode.runAction(self.imageHighlightAction)
         return planeNode
     }
     
     // Add AR object to the scene
     func addObjectToScene(name: String? = "default",x: Float = 0, y: Float = 0, z: Float = 0, scale: Float? = 1) -> SCNNode{ // Name and scale are optional
         let myObject = SCNNode() // Create Scenen node
+        myObject.name = "ARObject"
         
         if name == "default"{
-            //
+            // If name is default we add a red sphere
             myObject.geometry = SCNBox(width: 0.1, height: 0.1, length: 0.1, chamferRadius: 0.05)
             myObject.geometry?.firstMaterial?.diffuse.contents = UIColor.red
             print("Input was \"default\" so generated a red sphere")
         }else {
-            guard let objScene = SCNScene(named: "\(name ?? "default")" + ".dae") else { // Very insecure - FIX LATER
+            // Load the object with name
+            guard let objScene = SCNScene(named: "\(name ?? "default")" + ".dae") else { // Very unsafe - FIX LATER
+                // Add the object with name: name to the scene
                 print("Object \(String(describing: name)) not found!")
                 return self.addObjectToScene(name:"default", x: x, y: y, z: z, scale:scale) }
             let objChildNodes = objScene.rootNode.childNodes

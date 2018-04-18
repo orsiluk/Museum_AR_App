@@ -98,7 +98,7 @@
                                 <rect key="frame" x="0.0" y="28" width="414" height="656"/>
                                 <subviews>
                                     <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="nyr-WE-eAb">
-                                        <rect key="frame" x="40" y="8" width="334" height="496"/>
+                                        <rect key="frame" x="40" y="8" width="334" height="612"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter painting name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MBZ-WZ-i8u">
                                                 <rect key="frame" x="0.0" y="0.0" width="334" height="40"/>
@@ -147,6 +147,24 @@
                                                     <action selector="addObjectsToFind:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tcJ-RP-znT"/>
                                                 </connections>
                                             </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Record Task" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v8c-Xg-drU">
+                                                <rect key="frame" x="0.0" y="504" width="334" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="RzC-OF-d6O"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                                <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Record Next" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Xp-VE-Yy1">
+                                                <rect key="frame" x="0.0" y="562" width="334" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="p69-17-a12"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                                <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="MBZ-WZ-i8u" secondAttribute="trailing" id="Ov8-Oc-bn2"/>
@@ -539,6 +557,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="Lsa-xL-t9j"/>
         <segue reference="V2J-ji-W1Q"/>
-        <segue reference="rNx-BD-BEO"/>
+        <segue reference="tIO-xV-IQp"/>
     </inferredMetricsTieBreakers>
 </document>

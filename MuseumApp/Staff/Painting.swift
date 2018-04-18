@@ -115,7 +115,7 @@ class Painting: NSObject, NSCoding{
         let stringArray = aDecoder.decodeObject(forKey: PropertyKey.objectArray) as? [String]
         
         var objectArray = [ObjInfo]()
-        if stringArray?.isEmpty != true {
+        if stringArray?.isEmpty != true  && stringArray != nil {
             for string in stringArray! {
                 var elements = string.components(separatedBy: " ")
                 let obj = ObjInfo(posX: CGFloat((elements[0] as NSString).doubleValue),posY: CGFloat((elements[1] as NSString).doubleValue),width: CGFloat((elements[2] as NSString).doubleValue),height: CGFloat((elements[3]as NSString).doubleValue))
