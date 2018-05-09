@@ -29,6 +29,9 @@ class SelectObjectsView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if theImagePassed == nil {
+            print("Soemthing went wrong, painting not found!")
+        }
         displayPainting.image = theImagePassed?.photo
         if theImagePassed?.objectArray != nil {
         myObjectArray = (theImagePassed?.objectArray)!

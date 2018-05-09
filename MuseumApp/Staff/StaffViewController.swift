@@ -66,12 +66,6 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
         updateSaveButtonState()
         
         view.backgroundColor = UIColor.black
-//        recordButtonTask.translatesAutoresizingMaskIntoConstraints = false
-//        playButtonTask.translatesAutoresizingMaskIntoConstraints = false
-//        let anchorView = view.subviews[0].subviews[0].subviews[3]
-//
-//        view.addSubview(recordButtonTask)
-//        view.addSubview(playButtonTask)
         
         // Asking user permission for accessing Microphone
         AVAudioSession.sharedInstance().requestRecordPermission () {
@@ -159,12 +153,6 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
     }
     
     @objc func record(sender: UIButton) {
-//        if isRecording {
-//
-//            finishRecording()
-//        }else {
-//            startRecording()
-//        }
         
         if isRecording {
 
@@ -377,6 +365,9 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
         let imagePickerController = UIImagePickerController()
         print("start picker")
         imagePickerController.sourceType = .photoLibrary // This line of code sets the image picker controller’s source, or the place where it gets its images. The .photoLibrary option uses the simulator’s camera roll.
+        
+        // If I use the camera it doesn't handle rotation well. It changes the orientation of the ar plane and objects depending how the ipad was facing when the picture was taken. only turned to the left works well.
+//        imagePickerController.sourceType = .camera
         imagePickerController.delegate = self
         print("picked")
         present(imagePickerController, animated: true, completion: nil)
@@ -385,6 +376,17 @@ class StaffViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
     
     @IBAction func addObjectsToFind(_ sender: Any) {
         let toFindVC = storyboard?.instantiateViewController(withIdentifier: "SelectObjectsView") as! SelectObjectsView
+        let name = nameTextField.text ?? ""
+        let photo = photoImageView.image
+        let content = addContent.text ?? ""
+        let gotSize = paintingSize_x.text ?? ""
+        let pSize = Float(gotSize)
+        let phisical_size_x = CGFloat(pSize!)
+        //        let rating = ratingControl.rating
+        let objectArray = painting?.objectArray
+        
+        // Set the painting to be passed to StaffTableViewController after the unwind segue.
+        painting = Painting(name: name, photo: photo!, content:content, phisical_size_x:phisical_size_x, objectArray:objectArray)
         toFindVC.theImagePassed = painting
         navigationController?.pushViewController(toFindVC, animated: true)
     }

@@ -225,24 +225,31 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
             let obj_pos_x_right = planeNode.position.x + Float(referenceImage.physicalSize.width)/2 + 0.02 // Put it on the left side 0.1 distance away from the painting edge
             let obj_pos_y = planeNode.position.y + 0.02 // Put it a bit more forward
             let obj_pos_z = planeNode.position.z + Float(referenceImage.physicalSize.height)/2 // put it on the same hight as the bottom of the painting
-            //            let scale: Float = 0.25
+            let scale = Float(referenceImage.physicalSize.width) * 0.005
             var newNode = SCNNode()
             var ARNode = SCNNode()
             if (referenceImage.name == "poppies"){
+//              THIS DOSN"T WORK< CANT SEE TEXT
                 print(" :) nodeposition where pimage was recognized: \(node.position)")
                 // add object relative to the center of the image
-                ARNode = self.addObjectToScene(name: "Looking Around", x: obj_pos_x_right, y: obj_pos_y, z: obj_pos_z, scale: 0.001)
+//                ARNode = self.addObjectToScene(name: "Looking Around", x: obj_pos_x_right, y: obj_pos_y, z: obj_pos_z, scale: 0.001)
+                ARNode = self.addQuiz(name:"quiz", x: obj_pos_x_left-0.2, y: obj_pos_y+0.08, z: obj_pos_z, scale: scale)
+//                var quizNode = SCNNode()
+//                quizNode = self.addQuiz(name:"quiz", x: obj_pos_x_left, y: obj_pos_y, z: obj_pos_z, scale: 1)
+//                newNode.addChildNode(quizNode)
+                
             } else if (referenceImage.name == "park"){
                 // add object relative to the center of the image
-                ARNode = self.addObjectToScene(name: "Pointing Left", x: obj_pos_x_right, y: obj_pos_y, z: obj_pos_z, scale: 0.0005)
+                ARNode = self.addObjectToScene(name: "Pointing Left", x: obj_pos_x_right, y: obj_pos_y, z: obj_pos_z, scale: scale )
             } else if (referenceImage.name == "princess"){
                 // add object relative to the center of the image
-                ARNode = self.addObjectToScene(name: "Clapping", x: obj_pos_x_right, y: obj_pos_y, z: obj_pos_z, scale: 0.0005)
+                ARNode = self.addObjectToScene(name: "Clapping", x: obj_pos_x_right, y: obj_pos_y, z: obj_pos_z, scale: scale)
             } else{
-                ARNode = self.addObjectToScene(name: "Idle", x: obj_pos_x_left, y: obj_pos_y, z: obj_pos_z, scale: 0.0007)
+                ARNode = self.addObjectToScene(name: "Idle", x: obj_pos_x_left, y: obj_pos_y, z: obj_pos_z, scale: scale)
             }
             newNode.addChildNode(ARNode)
             newNode.name = referenceImage.name
+//            newNode.eulerAngles.y = .pi / 2
             node.addChildNode(newNode)
             
             self.foundPaintings[imageAnchor] = planeNode // add to the dictionary a pair of <ImageAnchor,SCNNode()> where SCNNode is my new plane that is over the painting
@@ -291,13 +298,13 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
             material.diffuse.contents = UIColor.red
             miniPlane.materials = [material]
             let objPlane = SCNNode(geometry: miniPlane)
-            objPlane.position = SCNVector3(obj.posX, obj.posY, 0.005)
+            objPlane.position = SCNVector3(obj.posX, obj.posY, 0.007)
             objPlane.name = "targetObject"
 //            objPlane.opacity = 0.50
             planeNode.addChildNode(objPlane)
         }
         
-        planeNode.opacity = 0.02
+        planeNode.opacity = 0.07
         planeNode.name = detectedPainting.name
         /*
          `SCNPlane` is vertically oriented in its local coordinate space, but
@@ -305,7 +312,7 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
          rotate the plane to match.
          */
         planeNode.eulerAngles.x = -.pi / 2
-        
+//        planeNode.eulerAngles.y = .pi / 2
         // This should flash for a while than stay there
         //        planeNode.runAction(self.imageHighlightAction)
         return planeNode
@@ -337,10 +344,43 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
         myObject.position = SCNVector3(x, y, z)
         myObject.scale = SCNVector3(scale!, scale!, scale!)
         myObject.eulerAngles.x = -.pi / 2 // This might be a problem later - We rotate everything 90 degrees to the left
+//        myObject.eulerAngles.y = .pi / 2
         print("Object with name \(String(describing: name)) was added")
         return myObject
     }
     
+    func addQuiz(name: String? = "quiz",x: Float = 0, y: Float = 0, z: Float = 0, scale: Float? = 1) -> SCNNode{ // Name and scale are optional
+        let myObject = SCNNode() // Create Scenen node
+        myObject.name = "ARObject"
+        
+        if name == "quiz"{
+            let quest = SCNNode()
+            let question = SCNText(string: "What is the style of this painting?", extrusionDepth: 1)
+            question.containerFrame = CGRect(origin: .zero, size: CGSize(width: 100.0, height: 500.0))
+            question.truncationMode = kCATruncationNone
+            question.isWrapped = true
+            question.alignmentMode = kCAAlignmentLeft
+            quest.geometry = question
+            myObject.addChildNode(quest)
+            
+            let opt1 = SCNNode()
+            let option1 = SCNText(string: "Cubist", extrusionDepth: 1)
+            opt1.geometry = option1
+            myObject.addChildNode(opt1)
+            
+            let opt2 = SCNNode()
+            let option2 = SCNText(string: "Impressionist", extrusionDepth: 1)
+            opt2.geometry = option2
+            myObject.addChildNode(opt2)
+        }
+        
+        myObject.position = SCNVector3(x, y, z)
+        myObject.scale = SCNVector3(scale!, scale!, scale!)
+        myObject.eulerAngles.x = -.pi / 2 // This might be a problem later - We rotate everything 90 degrees to the left
+        //        myObject.eulerAngles.y = .pi / 2
+        print("Object with name \(String(describing: name)) was added")
+        return myObject
+    }
     
     var imageHighlightAction: SCNAction {
         return .sequence([
