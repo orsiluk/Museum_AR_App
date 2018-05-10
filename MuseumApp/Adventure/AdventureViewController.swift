@@ -228,23 +228,29 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
             let scale = Float(referenceImage.physicalSize.width) * 0.005
             var newNode = SCNNode()
             var ARNode = SCNNode()
-            if (referenceImage.name == "poppies"){
+            if (referenceImage.name == "impression"){
 //              THIS DOSN"T WORK< CANT SEE TEXT
                 print(" :) nodeposition where pimage was recognized: \(node.position)")
                 // add object relative to the center of the image
-//                ARNode = self.addObjectToScene(name: "Looking Around", x: obj_pos_x_right, y: obj_pos_y, z: obj_pos_z, scale: 0.001)
-                ARNode = self.addQuiz(name:"quiz", x: obj_pos_x_left-0.2, y: obj_pos_y+0.08, z: obj_pos_z, scale: scale)
+                ARNode = self.addObjectToScene(name: "Looking Around", x: obj_pos_x_right, y: obj_pos_y, z: obj_pos_z, scale: scale)
+//                ARNode = self.addQuiz(name:"quiz", x: obj_pos_x_left-0.2, y: obj_pos_y+0.08, z: obj_pos_z, scale: scale)
 //                var quizNode = SCNNode()
 //                quizNode = self.addQuiz(name:"quiz", x: obj_pos_x_left, y: obj_pos_y, z: obj_pos_z, scale: 1)
 //                newNode.addChildNode(quizNode)
                 
             } else if (referenceImage.name == "park"){
                 // add object relative to the center of the image
-                ARNode = self.addObjectToScene(name: "Pointing Left", x: obj_pos_x_right, y: obj_pos_y, z: obj_pos_z, scale: scale )
+                ARNode = self.addObjectToScene(name: "Clapping", x: obj_pos_x_right, y: obj_pos_y, z: obj_pos_z, scale: scale )
+            } else if (referenceImage.name == "starrynight"){
+                // add object relative to the center of the image
+                ARNode = self.addObjectToScene(name: "Waving", x: obj_pos_x_left, y: obj_pos_y, z: obj_pos_z, scale: scale )
             } else if (referenceImage.name == "princess"){
                 // add object relative to the center of the image
                 ARNode = self.addObjectToScene(name: "Clapping", x: obj_pos_x_right, y: obj_pos_y, z: obj_pos_z, scale: scale)
-            } else{
+            } else if (referenceImage.name == "poppies"){
+                // add object relative to the center of the image
+                ARNode = self.addObjectToScene(name: "Pointing Left", x: obj_pos_x_right, y: obj_pos_y, z: obj_pos_z, scale: scale)
+            }else{
                 ARNode = self.addObjectToScene(name: "Idle", x: obj_pos_x_left, y: obj_pos_y, z: obj_pos_z, scale: scale)
             }
             newNode.addChildNode(ARNode)
@@ -300,11 +306,11 @@ class AdventureViewController: UIViewController, ARSCNViewDelegate {
             let objPlane = SCNNode(geometry: miniPlane)
             objPlane.position = SCNVector3(obj.posX, obj.posY, 0.007)
             objPlane.name = "targetObject"
-//            objPlane.opacity = 0.50
+            objPlane.opacity = 0.02
             planeNode.addChildNode(objPlane)
         }
         
-        planeNode.opacity = 0.07
+        planeNode.opacity = 0.05
         planeNode.name = detectedPainting.name
         /*
          `SCNPlane` is vertically oriented in its local coordinate space, but
