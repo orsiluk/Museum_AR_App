@@ -72,20 +72,6 @@ class Painting: NSObject, NSCoding{
 
     }
 
-//    func fromStringToObj(stringArray:[String]) -> [ObjInfo]{
-//        if stringArray.isEmpty == true {
-//            return []
-//        } else {
-//            var objects = [ObjInfo]()
-//            for string in stringArray {
-//                var elements = string.components(separatedBy: " ")
-//                let obj = ObjInfo(posX: Int(elements[0])!,posY: Int(elements[1])!,width: CGFloat((elements[2] as NSString).doubleValue),height: CGFloat((elements[3]as NSString).doubleValue))
-//                objects.append(obj)
-//            }
-//            return objects
-//        }
-//    }
-
     func fromObjToString(objects : [ObjInfo]) -> [String]{
 
         if objects.isEmpty == false {

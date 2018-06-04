@@ -1,2 +1,2 @@
 # MuseumAR
-App for children to use in museums - Using Augmented reality
+AUgmented reality application for children to use in museums.

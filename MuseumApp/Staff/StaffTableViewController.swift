@@ -85,7 +85,7 @@ class StaffTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    // MARK: - Table view data source
+    // Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -180,7 +180,7 @@ class StaffTableViewController: UITableViewController {
     }
     
     
-    // MARK: - Navigation
+    // Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

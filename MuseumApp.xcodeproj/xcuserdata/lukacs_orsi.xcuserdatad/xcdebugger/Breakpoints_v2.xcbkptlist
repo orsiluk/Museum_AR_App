@@ -29,11 +29,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MuseumApp/Adventure/AdventureViewController.swift"
-            timestampString = "547651461.7515171"
+            timestampString = "549804433.336122"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "297"
-            endingLineNumber = "297"
+            startingLineNumber = "296"
+            endingLineNumber = "296"
             landmarkName = "addPlaneOverPainting(detectedPainting:name:)"
             landmarkType = "7">
          </BreakpointContent>

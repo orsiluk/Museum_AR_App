@@ -83,7 +83,6 @@ extension AdventureViewController: ARSessionDelegate {
     func restartExperience() {
         guard isRestartAvailable else { return }
         isRestartAvailable = false
-        
         statusViewController.cancelAllScheduledMessages()
         
         resetTracking()

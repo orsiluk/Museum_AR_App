@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		610C5188204445B8000358F6 /* Painting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610C5187204445B8000358F6 /* Painting.swift */; };
-		610EA27820431B7F00B72E89 /* RatingControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610EA27720431B7F00B72E89 /* RatingControl.swift */; };
-		611AD1782052FEBD0017E366 /* resourceImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611AD1772052FEBD0017E366 /* resourceImages.swift */; };
 		612DCF0E20861D61006A8AA6 /* Looking Around.dae in Resources */ = {isa = PBXBuildFile; fileRef = 612DCF0D20861D61006A8AA6 /* Looking Around.dae */; };
 		6153B912208622DA0075842D /* Clapping.dae in Resources */ = {isa = PBXBuildFile; fileRef = 6153B90C208622D90075842D /* Clapping.dae */; };
 		6153B913208622DA0075842D /* Waiting.dae in Resources */ = {isa = PBXBuildFile; fileRef = 6153B90D208622D90075842D /* Waiting.dae */; };
@@ -47,8 +45,6 @@
 
 /* Begin PBXFileReference section */
 		610C5187204445B8000358F6 /* Painting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Painting.swift; sourceTree = "<group>"; };
-		610EA27720431B7F00B72E89 /* RatingControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingControl.swift; sourceTree = "<group>"; };
-		611AD1772052FEBD0017E366 /* resourceImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = resourceImages.swift; sourceTree = "<group>"; };
 		611AD1792055F6010017E366 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = /Users/lukacs_orsi/Desktop/Year_4/Thesis/MuseumApp/MuseumApp/Assets.xcassets; sourceTree = "<absolute>"; };
 		612DCF0D20861D61006A8AA6 /* Looking Around.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; name = "Looking Around.dae"; path = "MuseumApp/3D Objects/Looking Around/Looking Around.dae"; sourceTree = SOURCE_ROOT; };
 		6153B90C208622D90075842D /* Clapping.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; name = Clapping.dae; path = "MuseumApp/3D Objects/Clapping/Clapping.dae"; sourceTree = SOURCE_ROOT; };
@@ -161,7 +157,6 @@
 			children = (
 				61B8A3FE204C54BA00D2AA38 /* AdventureViewController.swift */,
 				61B8A404204C551000D2AA38 /* StatusViewController.swift */,
-				611AD1772052FEBD0017E366 /* resourceImages.swift */,
 				61B8A3FF204C54BA00D2AA38 /* ViewController+ARSessionDelegate.swift */,
 			);
 			path = Adventure;
@@ -172,7 +167,6 @@
 			children = (
 				616C72D32037089800BC8CD9 /* StaffViewController.swift */,
 				61FB1C86205EA0260008D585 /* SelectObjectsView.swift */,
-				610EA27720431B7F00B72E89 /* RatingControl.swift */,
 				610C5187204445B8000358F6 /* Painting.swift */,
 				6183E58420447CCF00B2C3A3 /* StaffTableViewController.swift */,
 				6183E582204471BB00B2C3A3 /* StaffTableViewCell.swift */,
@@ -294,7 +288,6 @@
 			files = (
 				610C5188204445B8000358F6 /* Painting.swift in Sources */,
 				616C72D42037089800BC8CD9 /* StaffViewController.swift in Sources */,
-				610EA27820431B7F00B72E89 /* RatingControl.swift in Sources */,
 				616C72D22037089800BC8CD9 /* AppDelegate.swift in Sources */,
 				61B8A401204C54BB00D2AA38 /* AdventureViewController.swift in Sources */,
 				61B8A402204C54BB00D2AA38 /* ViewController+ARSessionDelegate.swift in Sources */,
@@ -302,7 +295,6 @@
 				61FB1C87205EA0260008D585 /* SelectObjectsView.swift in Sources */,
 				61B8A405204C551000D2AA38 /* StatusViewController.swift in Sources */,
 				6183E583204471BB00B2C3A3 /* StaffTableViewCell.swift in Sources */,
-				611AD1782052FEBD0017E366 /* resourceImages.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -463,7 +455,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = MuseumAR;
+				PRODUCT_BUNDLE_IDENTIFIER = "MuseumAR-Final";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
@@ -484,7 +476,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = MuseumAR;
+				PRODUCT_BUNDLE_IDENTIFIER = "MuseumAR-Final";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
