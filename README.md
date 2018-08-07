@@ -1,5 +1,5 @@
 # MuseumAR
-AUgmented reality application for children to use in museums.
+Augmented reality application for children to use in museums.
 
 The high-level objective of this project is to provide a means to educate children in an interactive and entertaining way and provide museums with an easy to use interface to deliver an enhanced educational experience.
 
