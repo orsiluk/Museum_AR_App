@@ -12,7 +12,8 @@ The application also provides a story creation interface for museum employees; c
 Key Objectives of MuseumAR:
 
 1. Provide museums with a useful tool to enhance children’s experience.
-2. Enable museums to make use of the latest technologies without any technical knowledge. 3. Enhance enjoyment for both children and parents while visiting a museum.
+2. Enable museums to make use of the latest technologies without any technical knowledge. 
+3. Enhance enjoyment for both children and parents while visiting a museum.
 4. Provide an interactive platform for children to explore exhibitions.
 5. Connect technology and fine art.
 
